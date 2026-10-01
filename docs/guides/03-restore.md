@@ -13,7 +13,7 @@ Use Apple’s supported iPod restore flow for the connected device. This erases 
 
 ## 2. Plan FAT32 before Rockbox
 
-Rockbox requires a Windows-initialized FAT32 iPod. A restore on this Mac may produce HFS+ again. A Windows iPod restore is the documented straightforward route; record the chosen route and verify the resulting filesystem. Do not use a guessed disk identifier or simply format the visible volume and assume the firmware partitions are correct.
+Rockbox requires FAT32 with the appropriate iPod firmware/partition layout. A Mac restore may produce HFS+ again. Rodrigo only has an M4 Pro Mac: use docs/INSTALL_PIPLUPOS_MAC.md for backup and the remaining live disk-layout check. The official Mac conversion reference uses old stock-capacity tables; do not blindly apply the 80 GB table to this 128 GB mod. The built-in experimental converter supports only 512-byte sectors. Verify the actual sector size and boundaries before choosing a conversion method.
 
 ## 3. Transfer one known song
 
@@ -32,7 +32,7 @@ Record reported capacity, filesystem, and results in the build log. After the op
 
 ## Keep in mind
 
-Formatting and restoration erase storage. The actual conversion session will need a verified backup, the current device identity, and a confirmed restore method. No project script performs these operations.
+Formatting and restoration erase storage, but a verified Mac copy can preserve the songs. The conversion session needs the current device identity, sector size, partition map and backup checked. No project script performs these operations.
 
 ## Full references
 

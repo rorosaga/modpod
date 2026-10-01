@@ -58,7 +58,9 @@ The generated strip has uneven apparent pixel blocks and frame-to-frame shape di
 
 The Mac apps and source patch are described in [SIMULATOR.md](../../docs/SIMULATOR.md). Neither variant has been installed on the iPod. Native renderer captures live in `previews/native-*-2026-10-01.png`; they are distinct from the concept boards.
 
-Playback places the mascot canvas at (164, 49), shifted 8 pixels left and 6 pixels up, while the album art stays at (196, 80). The footer shows **Shuffle On / Shuffle Off** from Rockbox's actual shuffle state. Both states were observed after changing the native playback setting. BPM-synchronized dancing is a [proposed custom-firmware extension](beat-sync.md), not part of the current fixed-timing animation.
+Playback places the mascot canvas at (164, 49), shifted 8 pixels left and 6 pixels up, while the album art stays at (196, 80). The footer shows **Shuffle On / Shuffle Off** from Rockbox's actual shuffle state. Both states were observed after changing the native playback setting. Rodrigo chose normal fixed-speed dancing, retaining the current 100 ms playing poses; BPM synchronization is [no longer planned](beat-sync.md).
+
+The standard skin's WPS and SBS also passed the official stable 4.0 parser on 1 October 2026. For the physical installation, use [the Mac backup, dual-boot and PiplupOS guide](../../docs/INSTALL_PIPLUPOS_MAC.md) and `dist/themes/piplupos.zip`. Stable GUI rendering and hardware performance still need testing; the delayed variant requires custom firmware.
 
 `export-native.lua` batch-loads the 19-frame mascot source and generates editable `aseprite/native-menu.aseprite` and `native-player.aseprite`, plus native BMP assets. The cover and transparent mascot share one viewport. An exported underlay restores the window pixels outside the art area, while each timed pose redraws the cover or water; this avoids trails or erased artwork on transitions. The script regenerates those UI sources, so save manual UI variants elsewhere; it leaves the mascot project untouched.
 

@@ -21,7 +21,7 @@ Run python3 tools/modpod.py build my-theme. The ZIP in dist/themes/ contains con
 
 ## 4. Try it in Rockbox
 
-Use python3 tools/simulator.py stage my-theme and the local simulator workflow in docs/SIMULATOR.md. Select the theme under Settings → Theme Settings → Browse Theme Files. Shuffle the indexed library through Database → Shuffle Songs. Shuffle and Repeat for the current playlist are under Settings → Playback Settings. Test long titles, missing tags, play/pause, battery, volume and menu scrolling. Later merge the package into an existing working iPod Rockbox installation, preserving its firmware. Do not use the experimental timers variant with stock firmware.
+Use python3 tools/simulator.py stage my-theme and the local simulator workflow in docs/SIMULATOR.md. For the physical install, follow docs/INSTALL_PIPLUPOS_MAC.md: merge dist/themes/piplupos.zip into the existing Rockbox installation and choose PiplupOS under Settings → Theme Settings → Browse Theme Files. Use the standard package on stock 4.0; the delayed variant needs custom firmware. Database → Shuffle Songs shuffles the library; Settings → Playback Settings → Shuffle and Repeat control the current playlist. Playback shows Shuffle On/Off and normal fixed-speed dancing. Test metadata, play/pause, covers, battery, volume and menu scrolling.
 
 ## Checklist
 
@@ -32,7 +32,7 @@ Use python3 tools/simulator.py stage my-theme and the local simulator workflow i
 
 ## Keep in mind
 
-PiplupOS native checks are recorded in docs/BUILD_LOG.md; Paper and Midnight have structural checks only. The browser preview is a generic illustration. Stable 4.0 compatibility, final pixel cleanup, Suki's cameo, early boot branding and physical playback/animation costs remain pending.
+PiplupOS native simulator checks and a successful stable 4.0 standard-skin parser check are recorded in docs/BUILD_LOG.md; Paper and Midnight have structural checks only. The browser preview is a generic illustration. Stable GUI/device behavior, final pixel cleanup, Suki cameo, early boot branding and physical animation costs remain pending.
 
 ## Full references
 
