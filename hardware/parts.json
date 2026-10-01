@@ -1,0 +1,38 @@
+[
+  {
+    "id": "quad", "name": "iFlash Quad", "category": "Storage adapter",
+    "seller": "iFlash", "purchase_status": "Purchased — user supplied link", "source": "iflash-quad",
+    "url": "https://www.iflash.xyz/store/iflash-quad/",
+    "image": "https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Quad_500.jpg",
+    "image_credit": "Product photo: iFlash / Radio Technical Solutions",
+    "details": "Four microSD slots; manufacturer lists iPod Video 5.5 compatibility. Start with your single card in uSD1.",
+    "pending": "Actual installation and storage test"
+  },
+  {
+    "id": "battery", "name": "Techtek 3000 mAh battery", "category": "Battery",
+    "seller": "Amazon Spain · Techtek", "purchase_status": "Purchased — user supplied link", "source": "amazon-battery",
+    "url": "https://www.amazon.es/dp/B0DTKR4JHW",
+    "image": "https://m.media-amazon.com/images/I/71XhwrcbMHL._AC_SX679_.jpg",
+    "image_credit": "Product photo: Techtek listing on Amazon Spain",
+    "details": "Listing model CS-IPD650SL; advertised 3000 mAh, 3.8 V, 75.1 × 55.8 × 3.8 mm. Capacity and dimensions are seller specifications.",
+    "pending": "Measure the received pack and confirm clearance with the Quad. Do not force the case closed."
+  },
+  {
+    "id": "toolkit", "name": "iFixit Essential Electronics Toolkit", "category": "Tools",
+    "seller": "Amazon Spain", "purchase_status": "Purchased — user supplied link", "source": "amazon-toolkit",
+    "url": "https://www.amazon.es/dp/B0964G2Y7S",
+    "image": "https://m.media-amazon.com/images/I/81VQXECnAwS._AC_SX679_.jpg",
+    "image_credit": "Product photo: iFixit listing on Amazon Spain",
+    "details": "Black/blue starter toolkit with precision driver bits and opening tools. Prepare a clean tray for screws and small parts as well.",
+    "pending": "Check the delivered kit before starting"
+  },
+  {
+    "id": "microsd", "name": "SanDisk Ultra PLUS · 128 GB", "category": "microSD",
+    "seller": "MediaMarkt Spain", "purchase_status": "Purchased — user reported description", "source": "mediamarkt-card",
+    "url": "https://www.mediamarkt.es/es/product/_tarjeta-micro-sd-sandisk-ultra-plus-128-gb-hasta-200-mbs-uhs-i-v10-a1-c10-adaptador-sd-full-hd-gris-1666653.html",
+    "image": "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_177621597/fee_786_587_png",
+    "image_credit": "Matching variant photo: SanDisk listing on MediaMarkt Spain",
+    "details": "128 GB / Go, advertised up to 200 MB/s. This public listing matches your description; the purchase receipt and exact SKU have not been checked. The speed rating is not an iPod transfer-speed promise.",
+    "pending": "Record the package SKU. This exact card + Quad combination has not been tested here."
+  }
+]

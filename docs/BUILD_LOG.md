@@ -1,0 +1,102 @@
+# Build log
+
+## 2026-09-30 · Apple firmware baseline
+
+- Device reported as an iPod Video with original 80 GB storage and Apple firmware 1.3. Rodrigo identifies it as the 5.5 generation.
+- Before modification, the mounted data volume was HFS+ / Mac formatted.
+- After a Mac restart and Finder’s Get Started flow, manual music transfer worked.
+- One AAC `.m4a` song was copied from the Mac music library. The stored iPod file matched the source hash.
+- Rodrigo confirmed that the iPod plays the song. The iPod was safely ejected.
+- This establishes a playback baseline. It does not establish long battery runtime, all controls, or flash-storage compatibility.
+
+## Foundation · Local only
+
+- Repository cloned to `Documents/roros_lab/modpod`; branch `setup/project-foundation`.
+- Purchases recorded from Rodrigo’s links: iFlash Quad, Amazon Spain Techtek battery, Amazon Spain iFixit toolkit, MediaMarkt SanDisk Ultra PLUS 128 GB card.
+- At foundation creation, the hardware swap and Rockbox installation were pending.
+- Paper and Midnight remain starter examples with structural checks only.
+
+## 2026-09-30 · Hardware report
+
+- Rodrigo reports completing the iFlash Quad and battery swap, restoring Apple firmware, and seeing the expected new storage capacity.
+- Battery pressure on the screen was reported. Physical clearance, charging, closed-case playback and USB reliability remain to be checked; do not infer them from the capacity result.
+
+## 2026-10-01 · Native Mac setup and shared music
+
+- Dual boot approved: Apple firmware retains the original Movies, Notes and Search experience; PiplupOS skins Rockbox.
+- Rockbox Utility 1.5.1's official Mac release was Intel-only. A native ARM64 Utility 1.5.2 was compiled from official Rockbox source commit `e45936397ee3677c910c9a0c6473184e9755040c` using Qt 6.11.2, bundled and installed at `/Applications/RockboxUtility.app`. Its executable is ARM64, signature verification passed, and its GUI opened through computer use. This is a local current-source build, not an official released Apple Silicon binary. The installer remains unconfigured; installation has not been started.
+- Native ARM64 `ipodvideo` UI simulator built and installed at `/Applications/PiplupOS Simulator.app`. Local host patches and the experimental simulator-only skin-variable feature are recorded in `tools/patches/macos-simulator.patch` and `docs/SIMULATOR.md`.
+- Official stable Rockbox 4.0 ZIP downloaded locally and CRC checked. Its target is `ipodvideo`, 64 MB, matching the original 80 GB model. It includes the Helvetica font used by PiplupOS. No firmware or bootloader was copied to the iPod.
+- First read-only inspection found the connected 128 GB iPod HFS+ with approximately 11.9 GB used. Subsequent Apple Music sync may increase that figure. Rockbox requires FAT32; no conversion, device reset, ejection, rename or device writes were performed.
+- Native database indexing of `iPod_Control/Music/F00/TEST.m4a` passed, including title, artist, album and Apple-style path. Native GUI AAC playback showed the same tags and the 3-minute fixture duration. The test fixture is silent, synthetic audio, not private user music.
+- Shared-library settings and first-index/resync instructions are in `design/piplupos/shared-music.cfg` and `docs/SHARED_MUSIC.md`. Physical-song indexing remains pending until a later installation and resync.
+
+## 2026-10-01 · PiplupOS native prototype
+
+- Editable mascot remains `design/piplupos/aseprite/piplup-draft-v5.aseprite`: 64 × 64, 19 frames. Aseprite exported native menu/player backdrops, pool animation and opaque composite sprite strips. Editable generated UI sources are stored beside the mascot.
+- Native WPS and SBS parsing passed for both `piplupos` and `piplupos-delayed` using `checkwps.ipodvideo` at the recorded development commit. Standard-theme full menu navigation, file browsing, AAC/WAV playback, pause, title scrolling, missing artist/album fallbacks and pool/mascot rendering were verified through computer use.
+- The stock-compatible theme uses timed head-bob/water frames and immediate neck rest when paused. The experimental WPS showed headphones on during its pause delay, at the neck after the delay, and back on after resume. This needs HAVE_SKIN_VARIABLES, which stock ipodvideo firmware does not enable. Only the simulator has been built with that feature.
+- An animation redraw artifact was corrected using opaque pool/sprite composites; a tiny nonprinting control viewport prevents title erasure. All standard menu entries remain accessible, with a separate mascot sidebar.
+- Native 320 × 240 renders are in `design/piplupos/previews/native-*-2026-10-01.png`; these are renderer output, not browser illustrations.
+- The local handbook now opens PiplupOS by default and includes both native menu/playback captures. Its updated status and theme workshop layout were reviewed in the in-app browser; the palette editor remains a clearly labeled generic illustration.
+- Seven focused package/path-safety tests pass. Native checks above do not certify stable Rockbox 4.0 or device performance.
+- Still pending: quick pause/resume cancellation, cross-screen state persistence, stopped-state timing, shuffle/repeat/seek edge cases, final pixel cleanup, Suki cameo, early boot logo, and physical dual-boot/playback/storage/battery checks.
+- Everything remains local on `setup/project-foundation`; no commit, push or merge.
+
+## 2026-10-01 · Cover-art layout revision
+
+- Removed the standalone `pup` sidebar label requested by Rodrigo; retained `Welcome back, pup.` and `rkzim`.
+- The existing playback window now shows native album art, constrained to 103 × 84 with aspect ratio preserved. The 64 × 64 mascot canvas overlaps the window's upper-left corner at (179, 48). Artist/album text width was reduced slightly to prevent overlap.
+- Songs without a usable cover show animated pool water. A synthetic M4A with embedded baseline JPEG artwork verified the cover path; switching to the unillustrated AAC fixture verified fallback and removal of old artwork.
+- A battery outline is embedded in both Aseprite UI backdrops. Native `%bl` draws the fill alongside the percentage. Simulated charge levels from nearly full through zero showed the corresponding fill changes; this does not measure the physical replacement battery.
+- An initial overlay prototype erased a rectangle of the cover on pause. The final single viewport redraws art/water with timed pose updates and uses an Aseprite-exported underlay outside the art region. Standard pause/resume and normal experimental delayed neck/rest/resume were rechecked over artwork without that artifact.
+- Both native skin pairs pass parser checks, and the focused package/path checks pass. Full native captures were updated in the theme workshop.
+- The actual Database menu contains Album Artist, Artist, Album, Genre, Year, Composer, Tracks by, Shuffle Songs and Search. Playback Settings also retains Shuffle and Repeat. `docs/FEATURE_PRESERVATION.md` now maps these locations to the familiar Apple options.
+- No real iPod data or firmware was changed; nothing pushed.
+
+## 2026-10-01 · Animated pool desktop
+
+- Inset both menu and playback windows to (9, 9), 302 × 222. Water now forms an animated 9-pixel desktop border around the grey window, with a raised X on its title bar. X is visual chrome on the click-wheel target; normal Menu/Back navigation remains the action.
+- Added editable four-frame `native-desktop.aseprite` and four synchronized strip sheets. Only exposed strips redraw every 0.2 seconds; the sheets contain 39,024 pixels total rather than a 307,200-pixel full-screen four-frame sheet. Actual device CPU/memory and battery cost remain unmeasured.
+- Native GUI checked menu scrolling through Shortcuts, nested settings, standard pause/resume, cover/no-cover track changes and the experimental normal headphone delay/resume. The battery icon and 100% text fit beside X. Both variants parse and all seven package/path checks pass.
+- Two native F5 playback dumps showed 2,810 changed pixel-data bytes in the top border, confirming real renderer animation. Updated native previews are retained with the project. The optional GIF previews the border phases over a native capture, rather than recording simulator playback.
+- No physical iPod writes, commits or pushes.
+
+## 2026-10-01 · Smoother motion and bold metadata
+
+- Changed native animation sublines from 200 ms to 100 ms. Generated 12 water phases with a full angular cycle, removing the old four-frame loop's abrupt wrap. The faster Aseprite timing revision preserves all v5 pixel artwork; the previous project remains intact.
+- Stock idle menu waits can be one second and playback waits 200 ms. The Mac-only simulator patch caps those waits at 50 ms, reduces its menu update delay and avoids a missed alternator deadline at tick equality. The native animation target is nominally 10 frames/s; no frame-rate benchmark or physical-device performance claim is made.
+- Rebuilt the native ARM64 simulator, refreshed its virtual theme/font files and verified its app signature. Native GUI checked bold title/artist/album text, standard pause/resume, cover/no-cover switching, animated menus and the experimental normal headphone delay and resume. No new pixel trails or artwork-erasure artifact appeared.
+- Bundled the official Rockbox Adobe Helvetica Bold conversion and its permission notice. The package and safe local staging helpers support RB12 fonts; variant-copy coverage and invalid/symlink-font rejection pass. All eight focused tests and all four skin parser checks pass.
+- Refreshed native handbook captures plus 100 ms asset-preview GIFs. The composite motion GIF freezes playback text while illustrating exported water/mascot frames; it is not a native playback recording.
+- No real iPod data/firmware changes and no commits or pushes.
+
+## 2026-10-01 · Mascot placement, shuffle state and publication
+
+- Moved the playback mascot canvas from (172, 55) to (164, 49): 8 pixels left, 6 pixels up. Album art stays at (196, 80); the shared viewport, exported underlay and composite preview use the same offsets. Left metadata widths keep text clear of the mascot.
+- Both playback skins now explicitly display Shuffle On or Shuffle Off through native `%ps`. Changed Shuffle from Yes to No in the native playback settings and observed the footer update while playing; retained an Off capture alongside the cover and no-cover previews.
+- Native GUI checked the new position with cover art, no-cover water, normal delayed neck rest and resumed playback. All eight focused tests and all four WPS/SBS parser checks pass. Mac simulator checks remain separate from physical-device validation.
+- Recorded a proposed offline-analysis/custom-firmware beat-sync approach in `design/piplupos/beat-sync.md`. The current loop is fixed timing; no BPM analyzer or beat clock has been implemented.
+- Rodrigo authorized publishing the project through a dev branch, PR to main and merge. The repository had no commits or remote branches; an empty main commit provides the PR base. Local Rockbox builds, virtual storage/music, downloaded firmware, generated packages and private/reference images remain excluded.
+- No physical iPod data or firmware changes were performed.
+
+## Hardware session · To fill in
+
+- Date / before photo:
+- Back-shell measurement:
+- Battery label and measured dimensions:
+- Card manufacturer SKU:
+- Quad / ribbon / card-slot photo:
+- Dry-fit clearance result:
+- Apple restore method / filesystem / reported capacity:
+- Playback / controls / charging / USB test:
+- Closed-case result:
+
+## Rockbox session · To fill in
+
+- Backup complete:
+- Confirmed FAT32 volume:
+- Rockbox Utility version and host OS:
+- Bootloader / Rockbox build installed:
+- Apple dual boot and Rockbox playback:
+- Theme / simulator / device findings:

@@ -1,0 +1,17 @@
+{
+  "slug": "piplupos",
+  "name": "PiplupOS",
+  "description": "Light grey desktop chrome, blue pool window and a headphone-wearing Piplup.",
+  "target": "ipodvideo",
+  "screen": [
+    320,
+    240
+  ],
+  "colors": {
+    "background": "E9EDF1",
+    "foreground": "10162F",
+    "accent": "083EE8",
+    "muted": "A3ADBA"
+  },
+  "status": "Stock-compatible native prototype \u00b7 menu and AAC playback verified; hardware untested"
+}

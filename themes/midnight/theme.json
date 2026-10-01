@@ -1,0 +1,6 @@
+{
+  "slug": "midnight", "name": "Midnight", "description": "Ink blue, pale text, and amber. Built for a dark screen.",
+  "target": "ipodvideo", "screen": [320, 240],
+  "colors": {"background":"171F29","foreground":"E8E8DC","accent":"F0B65A","muted":"ACB7C1"},
+  "status": "Starter · not tested in Rockbox"
+}

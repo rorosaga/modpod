@@ -1,0 +1,159 @@
+diff --git a/apps/gui/list.c b/apps/gui/list.c
+index 12f17ce..9173c13 100644
+--- a/apps/gui/list.c
++++ b/apps/gui/list.c
+@@ -796,6 +796,11 @@ int list_do_action_timeout(struct gui_synclist *lists, int timeout)
+ {
+     add_event_ex(GUI_EVENT_NEED_UI_UPDATE, true, _lists_uiviewport_update_callback, NULL);
+     current_lists = lists;
++#if defined(SIMULATOR) && defined(__APPLE__)
++    /* Idle menus otherwise wait up to a second between skin updates. */
++    if (timeout > HZ/20 || timeout == TIMEOUT_BLOCK)
++        timeout = HZ/20;
++#endif
+     if(lists->scheduled_talk_tick)
+     {
+         long delay = lists->scheduled_talk_tick -current_tick +1;
+diff --git a/apps/gui/skin_engine/skin_display.c b/apps/gui/skin_engine/skin_display.c
+index a7c023d..2404834 100644
+--- a/apps/gui/skin_engine/skin_display.c
++++ b/apps/gui/skin_engine/skin_display.c
+@@ -759,6 +759,11 @@ bool skin_has_sbs(struct gui_wps *gwps)
+ /* Enter button loop updating peak meter at a high refresh rate */
+ int skin_wait_for_action(enum skinnable_screens skin, int context, int timeout)
+ {
++#if defined(SIMULATOR) && defined(__APPLE__)
++    /* Mac animation preview: service the renderer at least every 50 ms. */
++    if (timeout > HZ/20 || timeout == TIMEOUT_BLOCK)
++        timeout = HZ/20;
++#endif
+     /* Skip updates if peak meter disabled. */
+     bool peak_meter_enabled = false;
+     FOR_NB_SCREENS(i)
+diff --git a/apps/gui/skin_engine/skin_render.c b/apps/gui/skin_engine/skin_render.c
+index 5c731e0..2094ab8 100644
+--- a/apps/gui/skin_engine/skin_render.c
++++ b/apps/gui/skin_engine/skin_render.c
+@@ -690,7 +690,12 @@ bool skin_render_alternator(struct skin_element* element, struct skin_draw_info
+         alternator->current_line = element->children_count-1;
+         changed_lines = true;
+     }
++#if defined(SIMULATOR) && defined(__APPLE__)
++    /* Avoid an extra preview frame hold when a refresh lands on its deadline. */
++    else if (!TIME_BEFORE(current_tick, alternator->next_change_tick))
++#else
+     else if (TIME_AFTER(current_tick, alternator->next_change_tick))
++#endif
+     {
+         changed_lines = true;
+     }
+diff --git a/apps/gui/statusbar-skinned.h b/apps/gui/statusbar-skinned.h
+index d2cbbdc..3bbfa86 100644
+--- a/apps/gui/statusbar-skinned.h
++++ b/apps/gui/statusbar-skinned.h
+@@ -20,7 +20,11 @@
+ #ifndef __STATUSBAR_SKINNED_H__
+ #define __STATUSBAR_SKINNED_H__
+ 
++#if defined(SIMULATOR) && defined(__APPLE__)
++#define DEFAULT_UPDATE_DELAY (HZ/20)
++#else
+ #define DEFAULT_UPDATE_DELAY (HZ/7)
++#endif
+ 
+ #include <stdio.h>
+ #include <string.h>
+diff --git a/firmware/export/config/ipodvideo.h b/firmware/export/config/ipodvideo.h
+index 6ad0685..3932901 100644
+--- a/firmware/export/config/ipodvideo.h
++++ b/firmware/export/config/ipodvideo.h
+@@ -248,3 +248,8 @@
+ 
+ /* Define this if a programmable hotkey is mapped */
+ #define HAVE_HOTKEY
++
++/* Modpod experimental desktop proof; required for the delayed variant. */
++#ifdef SIMULATOR
++#define HAVE_SKIN_VARIABLES
++#endif
+diff --git a/firmware/target/hosted/sdl/button-sdl.c b/firmware/target/hosted/sdl/button-sdl.c
+index a329bb6..aacd842 100644
+--- a/firmware/target/hosted/sdl/button-sdl.c
++++ b/firmware/target/hosted/sdl/button-sdl.c
+@@ -70,6 +70,11 @@ int remote_type(void)
+ #endif
+ 
+ static int btn = 0;    /* Hopefully keeps track of currently pressed keys... */
++#if defined(SIMULATOR) && defined(__APPLE__)
++/* Keep a short desktop automation tap visible to the polling input task. */
++static int tap_btn;
++static unsigned long tap_until;
++#endif
+ 
+ #ifdef SIMULATOR
+ #include "strlcat.h"
+@@ -653,7 +658,16 @@ static void button_event(int key, bool pressed)
+     if (pressed)
+         btn |= new_btn;
+     else
++    {
++#if defined(SIMULATOR) && defined(__APPLE__)
++        if (new_btn)
++        {
++            tap_btn = new_btn;
++            tap_until = current_tick + 3;
++        }
++#endif
+         btn &= ~new_btn;
++    }
+ }
+ #if defined(HAVE_BUTTON_DATA)
+ int button_read_device(int* data)
+@@ -685,7 +699,11 @@ int button_read_device(void)
+     else
+ #endif
+ 
++#if defined(SIMULATOR) && defined(__APPLE__)
++    return btn | (TIME_BEFORE(current_tick, tap_until) ? tap_btn : 0);
++#else
+     return btn;
++#endif
+ }
+ 
+ void button_init_device(void)
+diff --git a/firmware/target/hosted/sdl/system-sdl.c b/firmware/target/hosted/sdl/system-sdl.c
+index 97fb0f9..cf4e37e 100644
+--- a/firmware/target/hosted/sdl/system-sdl.c
++++ b/firmware/target/hosted/sdl/system-sdl.c
+@@ -48,7 +48,7 @@
+ #include "instant_play.h"
+ #endif
+ 
+-#define SIMULATOR_DEFAULT_ROOT "simdisk"
++#define SIMULATOR_DEFAULT_ROOT "/Applications/PiplupOS Simulator.app/Contents/Resources/simdisk"
+ 
+ #if SDL_MAJOR_VERSION == 1
+ SDL_Surface *gui_surface;
+diff --git a/firmware/target/hosted/sdl/window-sdl.c b/firmware/target/hosted/sdl/window-sdl.c
+index 514fe2c..82dfc76 100644
+--- a/firmware/target/hosted/sdl/window-sdl.c
++++ b/firmware/target/hosted/sdl/window-sdl.c
+@@ -219,7 +219,7 @@ void sdl_window_setup(void)
+         flags |= SDL_WINDOW_RESIZABLE;
+ #endif
+ 
+-    if (!(picture_surface = SDL_LoadBMP("UI256.bmp")))
++    if (!(picture_surface = SDL_LoadBMP("/Applications/PiplupOS Simulator.app/Contents/Resources/UI256.bmp")))
+         background = false;
+ 
+     get_window_dimensions(&width, &height);
+diff --git a/tools/database/SOURCES b/tools/database/SOURCES
+index b429f9b..2594d94 100644
+--- a/tools/database/SOURCES
++++ b/tools/database/SOURCES
+@@ -22,3 +22,5 @@ database.c
+ ../../uisimulator/common/filesystem-sim.c
+ #endif /* APPLICATION */
+ /* Caution. metadata files do not add!! */
++
++../../firmware/target/hosted/sdl/filesystem-sdl.c

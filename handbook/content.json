@@ -1,0 +1,253 @@
+{
+  "title": "Modpod build notebook",
+  "stages": [
+    {
+      "id": "baseline",
+      "number": "01",
+      "title": "Keep a working baseline",
+      "summary": "The original iPod already plays a song. Record that result and prepare for the hardware session.",
+      "before": "Use the iPod in Apple firmware before changing hardware. A known working baseline makes later problems easier to isolate.",
+      "steps": [
+        {
+          "title": "Record what works",
+          "body": "Playback was confirmed on 30 September 2026. Before opening it, also check the click wheel, headphone output, charging, and USB connection. Add your findings to docs/BUILD_LOG.md."
+        },
+        {
+          "title": "Back up anything you want to keep",
+          "body": "Keep the source music on the Mac and copy any unique iPod content to a separate backup. The storage restore and FAT32 conversion later will erase the iPod."
+        },
+        {
+          "title": "Check your parts",
+          "body": "Lay out the Quad, card, battery, and toolkit. Photograph the card label and battery. Compare the received battery with the listing dimensions, and measure the back-shell depth."
+        },
+        {
+          "title": "Prepare the workspace",
+          "body": "Use a clean, well-lit surface, a parts tray, and the illustrated opening guide. Safely eject the iPod, unplug it, and turn it off before opening."
+        }
+      ],
+      "checklist": [
+        {
+          "id": "playback",
+          "text": "Apple-firmware playback confirmed",
+          "complete": true
+        },
+        {
+          "id": "backup",
+          "text": "Music and any unique files backed up"
+        },
+        {
+          "id": "controls",
+          "text": "Controls, charging, audio, and USB baseline recorded"
+        },
+        {
+          "id": "labels",
+          "text": "Card SKU, battery dimensions, and case depth recorded"
+        }
+      ],
+      "note": "The baseline was Mac formatted (HFS+). Do not assume it is ready for Rockbox just because it works in Finder.",
+      "sources": [
+        "ifixit-battery",
+        "iflash-quad",
+        "iflash-battery"
+      ]
+    },
+    {
+      "id": "hardware",
+      "number": "02",
+      "title": "Install the Quad & battery",
+      "summary": "Follow the illustrated repair and manufacturer guides, with a fit check before closing the case.",
+      "before": "Complete the backup and baseline first. These checkpoints accompany the full photo guides; keep those guides open during the repair.",
+      "steps": [
+        {
+          "title": "Open with the photo guide",
+          "body": "Follow iFixit’s opening sequence. Support both halves and the headphone ribbon as the case opens. Photograph the existing cable routing before moving parts."
+        },
+        {
+          "title": "Disconnect power, then replace storage",
+          "body": "Disconnect the battery carefully before removing the HDD. The battery socket and its small latch are fragile. Follow iFlash’s ribbon-lock photos when seating the Quad; never force a ribbon or pry the whole socket off the board."
+        },
+        {
+          "title": "Start with one card",
+          "body": "Insert your 128 GB microSD in uSD1. Follow the Quad instructions for card seating, ZIF engagement, and supplied foam placement. Save the original HDD and battery separately."
+        },
+        {
+          "title": "Dry-fit the new battery",
+          "body": "Check the exact pack dimensions, ribbon routing, and clearance alongside the Quad. Keep the battery flat and uncompressed. If the assembly resists closing, stop and reassess the fit. Do not bend, puncture, or sand a battery. Reconnect power only after the other connections are secure."
+        }
+      ],
+      "checklist": [
+        {
+          "id": "power",
+          "text": "Battery disconnected before storage work"
+        },
+        {
+          "id": "quad",
+          "text": "Quad ribbon seated and card in uSD1"
+        },
+        {
+          "id": "fit",
+          "text": "Battery clearance and safe cable routing checked"
+        },
+        {
+          "id": "photo",
+          "text": "Open-case assembly photographed before testing"
+        }
+      ],
+      "note": "The Techtek pack is advertised for 5th/5.5th-gen iFlash builds. Its fit in your exact Quad + case assembly has not been confirmed. Test the assembly before snapping all the case clips shut.",
+      "sources": [
+        "ifixit-battery",
+        "iflash-quad",
+        "iflash-battery"
+      ]
+    },
+    {
+      "id": "restore",
+      "number": "03",
+      "title": "Restore & test Apple firmware",
+      "summary": "Prove that the new hardware works before introducing Rockbox.",
+      "before": "The Quad, card, and battery should be seated correctly, with no pressure on the cell or cables. Have your backup available.",
+      "steps": [
+        {
+          "title": "Restore the new storage",
+          "body": "Use Apple’s supported iPod restore flow for the connected device. This erases the new storage. Confirm the selected device is your iPod. If restore fails, use the iFlash card-preparation reference and recheck seating before trying again."
+        },
+        {
+          "title": "Plan FAT32 before Rockbox",
+          "body": "Rockbox requires a Windows-initialized FAT32 iPod. A restore on this Mac may produce HFS+ again. A Windows iPod restore is the documented straightforward route; record the chosen route and verify the resulting filesystem. Do not use a guessed disk identifier or simply format the visible volume and assume the firmware partitions are correct."
+        },
+        {
+          "title": "Transfer one known song",
+          "body": "Repeat the Apple-firmware music test with the same AAC song. Safely eject, then confirm playback, track navigation, headphone output, charging, and USB reconnection."
+        },
+        {
+          "title": "Record and close",
+          "body": "Record reported capacity, filesystem, and results in the build log. After the open-case checks pass, close without force and repeat the basic playback and charging checks."
+        }
+      ],
+      "checklist": [
+        {
+          "id": "restore",
+          "text": "Apple restore completed on new storage"
+        },
+        {
+          "id": "playback",
+          "text": "Playback, controls, charging, and USB tested"
+        },
+        {
+          "id": "filesystem",
+          "text": "Actual filesystem and reported capacity recorded"
+        },
+        {
+          "id": "closed",
+          "text": "Case closes freely; closed-case test passed"
+        }
+      ],
+      "note": "Formatting and restoration erase storage. The actual conversion session will need a verified backup, the current device identity, and a confirmed restore method. No project script performs these operations.",
+      "sources": [
+        "iflash-quad",
+        "iflash-card",
+        "rockbox-install"
+      ]
+    },
+    {
+      "id": "rockbox",
+      "number": "04",
+      "title": "Install Rockbox",
+      "summary": "Use the official ipodvideo instructions once the modified hardware works and the iPod is FAT32.",
+      "before": "Apple firmware must play music on the new hardware, and the data volume must be FAT32. If it is HFS+, finish the restore/conversion stage first.",
+      "steps": [
+        {
+          "title": "Open the native Mac installer",
+          "body": "Rockbox Utility is installed in Applications as a locally compiled Apple Silicon build from official current source. The official 1.5.1 Mac release was Intel-only. Stable Rockbox 4.0 for the 64 MB ipodvideo is prepared locally; see docs/SIMULATOR.md and docs/BUILD_LOG.md. The iPod is still HFS+, so physical installation waits for the FAT32 restore/conversion."
+        },
+        {
+          "title": "Select the exact target",
+          "body": "Choose iPod Video (ipodvideo), which covers 5th/5.5th generation. Confirm the mount point belongs to your FAT32 iPod. Select the current recommended stable release; record its version and the Utility version in the build log."
+        },
+        {
+          "title": "Install bootloader and firmware",
+          "body": "Follow Utility’s prompts and the official chapter for the bootloader and Rockbox firmware. Install the fonts package when using themes that require it. Keep power and USB connected until the installer reports completion, then safely eject."
+        },
+        {
+          "title": "Test both firmware paths",
+          "body": "After the FAT32 restore, resync songs from the Mac using Apple Music. Rockbox can index the same files under iPod_Control/Music without a second copy; load the optional shared-music.cfg and initialize its Database as described in docs/SHARED_MUSIC.md. Test one unprotected song in both firmware paths and check the documented Hold-switch dual boot. Confirm controls, charging and USB before relying on the installation."
+        }
+      ],
+      "checklist": [
+        {
+          "id": "fat32",
+          "text": "FAT32 confirmed on the actual iPod"
+        },
+        {
+          "id": "installed",
+          "text": "Bootloader and current Rockbox firmware installed"
+        },
+        {
+          "id": "playback",
+          "text": "Rockbox playback and USB test passed"
+        },
+        {
+          "id": "dualboot",
+          "text": "Apple firmware dual boot checked; versions logged"
+        }
+      ],
+      "note": "The manual warns about flash-storage write corruption with Rockbox 3.15 and earlier, fixed in later builds. Use the current recommended release. There is no Rockbox installation on this iPod yet.",
+      "sources": [
+        "rockbox-install",
+        "rockbox-start"
+      ]
+    },
+    {
+      "id": "themes",
+      "number": "05",
+      "title": "Make it your own",
+      "summary": "PiplupOS is the custom design direction. Paper and Midnight are scaffold examples for learning the native theme workflow.",
+      "before": "PiplupOS now runs in the native Mac simulator: light-grey windows, blue pool animation, the round-face mascot, full menu access and playback metadata. The standard skin changes immediately on pause; the experimental 3-second headphone delay requires custom firmware and was checked in the modified simulator. Editable Aseprite sources live in design/piplupos/. Dual boot with Apple firmware is approved; no Rockbox or theme has been installed on the iPod.",
+      "steps": [
+        {
+          "title": "Create a theme folder",
+          "body": "Run python3 tools/modpod.py new my-theme --from piplupos. This copies its editable manifest, native layout overrides and bitmap assets into themes/my-theme/ without overwriting an existing theme. Use paper for a simpler built-in-font example."
+        },
+        {
+          "title": "Edit the palette or layout",
+          "body": "Change text colors and the name in theme.json, or download a manifest from the palette editor. Edit themes/my-theme/native/ for its own layout. PiplupOS chrome and sprites are bitmaps: recolor them in Aseprite and export separately; manifest edits do not recolor the art. Its Helvetica font is included in the prepared stable firmware ZIP."
+        },
+        {
+          "title": "Build the package",
+          "body": "Run python3 tools/modpod.py build my-theme. The ZIP in dist/themes/ contains configuration, playback and menu/status skins, plus the theme's BMP assets. The command refreshes this handbook and checks package structure; native renderer checks are separate."
+        },
+        {
+          "title": "Try it in Rockbox",
+          "body": "Use python3 tools/simulator.py stage my-theme and the local simulator workflow in docs/SIMULATOR.md. Select the theme under Settings → Theme Settings → Browse Theme Files. Shuffle the indexed library through Database → Shuffle Songs. Shuffle and Repeat for the current playlist are under Settings → Playback Settings. Test long titles, missing tags, play/pause, battery, volume and menu scrolling. Later merge the package into an existing working iPod Rockbox installation, preserving its firmware. Do not use the experimental timers variant with stock firmware."
+        }
+      ],
+      "checklist": [
+        {
+          "id": "design",
+          "text": "First custom manifest created",
+          "complete": true
+        },
+        {
+          "id": "package",
+          "text": "Theme package built and inspected",
+          "complete": true
+        },
+        {
+          "id": "skin",
+          "text": "Native skin tested in a simulator or on the iPod",
+          "complete": true
+        },
+        {
+          "id": "device",
+          "text": "Device playback and menus tested; findings logged"
+        }
+      ],
+      "note": "PiplupOS native checks are recorded in docs/BUILD_LOG.md; Paper and Midnight have structural checks only. The browser preview is a generic illustration. Stable 4.0 compatibility, final pixel cleanup, Suki's cameo, early boot branding and physical playback/animation costs remain pending.",
+      "sources": [
+        "rockbox-themes",
+        "rockbox-tags",
+        "aseprite-cli"
+      ]
+    }
+  ]
+}

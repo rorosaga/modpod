@@ -1,0 +1,13 @@
+# Modpod: $name — built-in font and a simple menu viewport
+%wd
+%V(0,0,320,240,0)
+%Vf($foreground)
+%Vb($background)
+%V(12,10,296,16,0)
+%Vf($accent)
+%Vb($background)
+%alMODPOD%ar%bl%%
+%Vi(m,12,36,296,190,0)
+%Vf($foreground)
+%Vb($background)
+%VI(m)
