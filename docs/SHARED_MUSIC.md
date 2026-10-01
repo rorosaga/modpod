@@ -2,7 +2,7 @@
 
 Continue syncing ordinary audio files with Apple Music while booted into Apple firmware. Apple stores synced files under `/iPod_Control/Music/Fxx/`, with renamed filenames. Rockbox reads the audio files and their embedded metadata, and builds its own Database for artist, album and title browsing. A second copy of every song is unnecessary.
 
-The current iPod is HFS+; Rockbox cannot yet run on it. Keep the Mac originals. A later FAT32 conversion may erase the iPod and require a restore/resync. Do not perform that conversion during an active sync.
+The last device inspection found HFS+; no iPod was mounted at the latest check. Rockbox cannot run on that HFS+ layout. Keep the Mac originals and back up the entire hidden `iPod_Control` folder before conversion, including `Music/Fxx` audio files. The songs can be recovered from that copy without downloading them again; playlists, ratings and artwork migration need separate checks. FAT32 conversion erases the data volume, so do not perform it during an active sync or before verifying the backup. See [the Mac installation and backup guide](INSTALL_PIPLUPOS_MAC.md).
 
 After the eventual dual-boot installation and music resync:
 

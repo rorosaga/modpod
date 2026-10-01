@@ -80,6 +80,20 @@
 - Rodrigo authorized publishing the project through a dev branch, PR to main and merge. The repository had no commits or remote branches; an empty main commit provides the PR base. Local Rockbox builds, virtual storage/music, downloaded firmware, generated packages and private/reference images remain excluded.
 - No physical iPod data or firmware changes were performed.
 
+## 2026-10-01 · Fixed dance speed confirmed
+
+- Rodrigo chose normal fixed-speed dancing. Retained the existing 100 ms playing poses and pause/headphone behavior; no skin or asset changes were needed.
+- Removed BPM synchronization from planned work and replaced its proposal with the decision record. No beat-analysis or custom beat-clock implementation will be pursued under the current scope.
+
+## 2026-10-01 · Stable parser and Mac installation guide
+
+- Official live build information still lists Rockbox 4.0 as the stable ipodvideo release. The prepared official ZIP identifies ipodvideo, 64 MB, version 4.0 and includes the regular Helvetica font used by PiplupOS.
+- Built the native checkwps tool from official `v4.0-final`, commit `e094c599fa60236527f9e272e0b8309d7696e399`. Used installed GCC 16 instead of the configure script's hardcoded GCC 14 host tools and generated language headers before compilation; skin parser and target feature definitions remain unchanged. Both current standard PiplupOS WPS/SBS parse successfully. This is not a stable GUI or hardware test.
+- Rodrigo only has his M4 Pro Mac and wants to preserve songs already synced to the iPod. Added `docs/INSTALL_PIPLUPOS_MAC.md` with hidden iPod_Control backup/recovery, the remaining disk-layout check, Utility installation, iPod Video dual boot, standard theme ZIP merge, and shared music indexing. No song backup is claimed complete.
+- A fresh `diskutil list external physical` check returned no devices. The first HFS+ observation remains historical; current filesystem, capacity, sector size and disk identifiers require a connected-device inspection.
+- Built official-source ipodpatcher from commit `e45936397ee3677c910c9a0c6473184e9755040c`; verified native ARM64 output and its help. No embedded bootloader/default installation mode was built. Upstream's experimental conversion and formatting routines only support 512-byte sectors. The historical Mac reference covers 2048-byte-sector Video models, but its stock 80 GB partition map is not verified for this 128 GB modification. No formatting command is prescribed until the actual layout is checked.
+- No physical iPod writes, conversion, firmware installation, resets or disconnections occurred. Local downloaded source, tool binaries, firmware and any future private music backup remain excluded from Git.
+
 ## Hardware session · To fill in
 
 - Date / before photo:

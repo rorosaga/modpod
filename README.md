@@ -4,7 +4,7 @@ A build notebook and theme workshop for Rodrigo’s iPod Video 5.5 generation.
 
 **Custom design direction: [PiplupOS](design/piplupos/README.md).** A Windows 95/XP-era skin with grey beveled windows, deep-blue title bars, pool-water blues, and a left-facing, closed-eye Piplup wearing headphones. Visual concepts and an Aseprite animation draft live in `design/piplupos/`; Paper and Midnight below are foundation examples, not the selected final theme. [Feature preservation](docs/FEATURE_PRESERVATION.md) uses the dual-boot route approved by Rodrigo: Rockbox/PiplupOS plus the original Apple firmware.
 
-**Current stage:** Rodrigo installed the Quad and replacement battery and confirmed the new 128 GB storage on 30 September. Native Apple Silicon Rockbox Utility and the simulator are installed on his Mac. PiplupOS menus, playback and animation have native simulator checks; physical installation is blocked by the current HFS+ volume. Keep source songs on the Mac for a later FAT32 restore/resync. See [shared music](docs/SHARED_MUSIC.md) and [Mac setup](docs/SIMULATOR.md). Screen pressure and post-mod playback/charging/USB checks remain pending. Development uses a dev branch and pull requests to `main`; simulator binaries, virtual music and generated packages are excluded from Git.
+**Current stage:** Rodrigo installed the Quad and replacement battery and confirmed the new 128 GB storage on 30 September. Native Apple Silicon Rockbox Utility and the simulator are installed on his Mac. PiplupOS menus, playback and animation have native simulator checks, and the standard skin passes the stable 4.0 parser. The last device inspection found HFS+; no iPod was mounted at the latest check. Start with [the Mac installation and music-backup guide](docs/INSTALL_PIPLUPOS_MAC.md), then [shared music](docs/SHARED_MUSIC.md). FAT32 conversion needs the actual modified disk layout checked first. Screen pressure and post-mod playback/charging/USB checks remain pending. Development uses a dev branch and pull requests to `main`; simulator binaries, virtual music, backups and generated packages are excluded from Git.
 
 ## Open the handbook
 
@@ -56,7 +56,7 @@ The palette editor in the handbook can also download an edited `theme.json`. Rep
 5. Resolve FAT32 formatting, then install Rockbox using the current official instructions.
 6. Test a starter theme, then iterate on your own designs.
 
-The connected iPod was still **HFS+ / Mac formatted** on 1 October. Rockbox requires a **FAT32 / Windows-initialized iPod**. Conversion may erase its songs and require restoring/resyncing; the guide leaves those actions for a later installation session, once backups and the device are confirmed. Apple-synced songs can then be indexed by Rockbox without a second copy.
+The connected iPod was **HFS+ / Mac formatted** at its first inspection on 1 October. Rockbox requires a **FAT32 iPod with the appropriate firmware/partition layout**. Conversion erases the data volume, but its existing songs can first be copied to the Mac and restored/resynced afterward. Mac-only conversion is described in the official reference; its old stock-capacity tables must not be applied blindly to this modified 128 GB device. [The installation guide](docs/INSTALL_PIPLUPOS_MAC.md) records the remaining device check and the complete dual-boot/theme steps. Apple-synced songs can then be indexed by Rockbox without a second copy.
 
 ## Check the foundation
 

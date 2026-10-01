@@ -13,7 +13,7 @@ Playback was confirmed on 30 September 2026. Before opening it, also check the c
 
 ## 2. Back up anything you want to keep
 
-Keep the source music on the Mac and copy any unique iPod content to a separate backup. The storage restore and FAT32 conversion later will erase the iPod.
+Keep the source music on the Mac and copy any unique iPod content into a verified backup. Existing Apple-synced songs can be copied from the hidden iPod_Control/Music/Fxx folders without downloading them again. Copy the whole iPod_Control folder to retain available metadata too. See docs/INSTALL_PIPLUPOS_MAC.md before any conversion, which erases the data volume.
 
 ## 3. Check your parts
 

@@ -10,7 +10,7 @@ Rodrigo approved dual boot on 2026-10-01. PiplupOS will skin Rockbox; original A
 | Original Notes experience | Keep original firmware available | Text Viewer reads text files; Text Editor provides simple editing | Establish whether equivalent text tools satisfy Rodrigo, or original Notes must be used |
 | Original Search experience | Keep original firmware available | Rockbox has its own database browsing/search facilities and a playlist Search plugin | Test Rodrigo's actual search needs; don't call it the Apple Search UI |
 | Music and click-wheel control | Preserve and retest the known stock playback baseline | Native playback and menu controls can remain while WPS/SBS skins change their appearance | Test both firmware paths, controls, long tags, charging, and USB |
-| Animated Piplup mascot | Not implemented by this project in Apple firmware | Native menu/playback prototype with pool/head-bob frames; experimental pause timer requires custom firmware | Final sprite cleanup, state edge cases, stable 4.0 and device performance tests |
+| Animated Piplup mascot | Not implemented by this project in Apple firmware | Native menu/playback prototype with pool/head-bob frames; standard skins pass the stable 4.0 parser; experimental pause timer requires custom firmware | Final sprite cleanup, state edge cases, stable GUI and device performance tests |
 | Mascot on every screen | No global overlay implemented | Plugins are separate programs and may draw their own interfaces | Define the exact supported screens; no claim of a mascot over movies/every plugin |
 
 ## Approved route: dual boot

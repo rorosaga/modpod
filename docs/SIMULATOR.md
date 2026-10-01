@@ -96,6 +96,12 @@ The current water animation has 12 phases with a continuous angular loop, replac
 
 On 2026-10-01 the connected 128 GB iPod was still HFS+ and had approximately 11.9 GB in use. Rockbox installation needs a FAT32-initialized iPod. No formatting, bootloader install, reset, or disconnection was performed. Preserve the Mac song originals and review backups before a conversion that may erase the iPod.
 
-Rodrigo approved dual boot and Mac preparation, and requested no resets/unplugging during autonomous work. Ask before pushing to main. A hardware installation session is separate from the local simulator loop.
+Rodrigo approved dual boot and Mac preparation, and requested no resets/unplugging during autonomous work. He subsequently authorized publication through a dev branch, PR and merge. A hardware installation session is separate from the local simulator loop; use [the Mac installation guide](INSTALL_PIPLUPOS_MAC.md), starting with a verified backup of the existing songs.
+
+## Stable 4.0 parser check · 2026-10-01
+
+Built `checkwps.ipodvideo` from official `v4.0-final`, commit `e094c599fa60236527f9e272e0b8309d7696e399`, for the 64 MB target. The only local source adaptation was selecting the installed GCC 16 host tools instead of the unavailable hardcoded GCC 14; language headers were generated before compilation. Both current standard `piplupos.wps` and `piplupos.sbs` parsed successfully. Skin parser and target feature definitions were unchanged.
+
+This establishes stable tag/parser compatibility for the standard theme, not stable GUI rendering, device animation cadence or custom-delay support. The delayed variant still needs custom firmware.
 
 Primary references: [official simulator instructions](https://github.com/Rockbox/rockbox/blob/master/docs/UISIMULATOR), [Mac build configuration](https://github.com/Rockbox/rockbox/blob/master/tools/configure), [installation requirements](https://github.com/Rockbox/rockbox/blob/master/manual/getting_started/installation.tex).

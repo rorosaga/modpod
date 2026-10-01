@@ -4,7 +4,7 @@
     "title": "Rockbox iPod Video manual · Installation",
     "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch2.html",
     "kind": "Official manual",
-    "checked": "2026-09-30",
+    "checked": "2026-10-01",
     "note": "Exact ipodvideo target; FAT32 prerequisite; Utility installation and flash-storage cautions."
   },
   {
@@ -12,7 +12,7 @@
     "title": "Rockbox iPod Video manual · Quick start",
     "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch3.html",
     "kind": "Official manual",
-    "checked": "2026-09-30",
+    "checked": "2026-10-01",
     "note": "USB music transfer and starting Apple firmware / Rockbox."
   },
   {
@@ -130,5 +130,13 @@
     "kind": "Official tool documentation",
     "checked": "2026-09-30",
     "note": "Fetched through Context7; native installed Aseprite help and actual export results also checked."
+  },
+  {
+    "id": "rockbox-conversion",
+    "title": "Rockbox · Mac iPod conversion to FAT32",
+    "url": "https://www.rockbox.org/wiki/IpodConversionToFAT32",
+    "kind": "Official reference",
+    "checked": "2026-10-01",
+    "note": "Historical Mac-only route, including 2048-byte-sector Video models. Stock-capacity partition tables are not verified for this modified 128 GB device. Check the actual layout and back up first."
   }
 ]

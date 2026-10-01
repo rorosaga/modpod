@@ -9,11 +9,11 @@ Apple firmware must play music on the new hardware, and the data volume must be 
 
 ## 1. Open the native Mac installer
 
-Rockbox Utility is installed in Applications as a locally compiled Apple Silicon build from official current source. The official 1.5.1 Mac release was Intel-only. Stable Rockbox 4.0 for the 64 MB ipodvideo is prepared locally; see docs/SIMULATOR.md and docs/BUILD_LOG.md. The iPod is still HFS+, so physical installation waits for the FAT32 restore/conversion.
+Rockbox Utility is installed in Applications as a locally compiled Apple Silicon build from official source. The official 1.5.1 Mac release was Intel-only. Stable Rockbox 4.0 for the 64 MB ipodvideo is prepared locally and remains the stable release in official build information checked on 1 October 2026. See docs/INSTALL_PIPLUPOS_MAC.md. The last device inspection found HFS+; no iPod was mounted at the latest check. Physical installation has not started.
 
 ## 2. Select the exact target
 
-Choose iPod Video (ipodvideo), which covers 5th/5.5th generation. Confirm the mount point belongs to your FAT32 iPod. Select the current recommended stable release; record its version and the Utility version in the build log.
+Choose iPod Video (ipodvideo), which covers 5th/5.5th generation, and the 64 MB variant if prompted: the original 80 GB model determines RAM, not the upgraded storage. Confirm the mount point belongs to the verified FAT32 iPod. Select stable 4.0 and record the firmware and Utility versions in the build log.
 
 ## 3. Install bootloader and firmware
 
@@ -21,7 +21,7 @@ Follow Utility’s prompts and the official chapter for the bootloader and Rockb
 
 ## 4. Test both firmware paths
 
-After the FAT32 restore, resync songs from the Mac using Apple Music. Rockbox can index the same files under iPod_Control/Music without a second copy; load the optional shared-music.cfg and initialize its Database as described in docs/SHARED_MUSIC.md. Test one unprotected song in both firmware paths and check the documented Hold-switch dual boot. Confirm controls, charging and USB before relying on the installation.
+Use the exact Hold-switch dual-boot steps in docs/INSTALL_PIPLUPOS_MAC.md. Apple firmware retains original Movies, Notes and Search. Resync songs from the Mac originals or verified iPod backup using Music while booted into Apple firmware. Rockbox can index those same files under iPod_Control/Music without a second copy; load shared-music.cfg and initialize its Database as described in docs/SHARED_MUSIC.md. Test one unprotected song in both firmware paths, plus controls, charging and USB.
 
 ## Checklist
 
@@ -38,3 +38,4 @@ The manual warns about flash-storage write corruption with Rockbox 3.15 and earl
 
 - [Rockbox iPod Video manual · Installation](https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch2.html)
 - [Rockbox iPod Video manual · Quick start](https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch3.html)
+- [Rockbox · Mac iPod conversion to FAT32](https://www.rockbox.org/wiki/IpodConversionToFAT32)
