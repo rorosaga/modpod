@@ -1,0 +1,33 @@
+# Modpod: $name — uses font 0 (Rockbox built-in)
+%wd
+%V(0,0,320,240,0)
+%Vf($foreground)
+%Vb($background)
+%V(12,12,296,16,0)
+%Vf($muted)
+%Vb($background)
+%alMODPOD%ar%bl%%
+%V(12,54,296,24,0)
+%Vf($accent)
+%Vb($background)
+%s%?it<%it|%fn>
+%V(12,87,296,16,0)
+%Vf($foreground)
+%Vb($background)
+%s%?ia<%ia|Unknown artist>
+%V(12,113,296,16,0)
+%Vf($muted)
+%Vb($background)
+%s%?id<%id|>
+%V(12,170,296,8,0)
+%Vf($accent)
+%Vb($background)
+%pb(0,0,296,6,-)
+%V(12,190,296,12,0)
+%Vf($foreground)
+%Vb($background)
+%al%pc%ar%pt
+%V(12,220,296,12,0)
+%Vf($muted)
+%Vb($background)
+%al%?mp<Stopped|Playing|Paused|Seeking|Seeking>%ar%pv dB

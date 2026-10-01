@@ -1,0 +1,11 @@
+# PiplupOS native prototype — ipodvideo 320x240
+wps: /.rockbox/wps/$slug.wps
+sbs: /.rockbox/wps/$slug.sbs
+font: /.rockbox/fonts/15-Adobe-Helvetica.fnt
+backdrop: -
+foreground color: $foreground
+background color: $background
+selector type: bar (inverse)
+line selector start color: $accent
+line selector end color: $accent
+line selector text color: FFFFFF

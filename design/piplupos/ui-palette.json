@@ -1,0 +1,16 @@
+{
+  "status": "Visual design targets; native theme implementation pending",
+  "name": "PiplupOS light-grey UI",
+  "colors": {
+    "panel": "#E9EDF1",
+    "bevel_highlight": "#F4F6F8",
+    "bevel_shadow": "#A3ADBA",
+    "title_bar": "#08086A",
+    "selection": "#083EE8",
+    "text": "#10162F",
+    "title_text": "#FFFFFF",
+    "water_accent": "#18BFF4"
+  },
+  "mascot": "Keep the liked muted ice-blue, denim-blue, white, and navy palette unchanged.",
+  "reference": "concepts/screens-v5-preferred-face.png"
+}

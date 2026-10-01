@@ -1,0 +1,134 @@
+{
+  "name": "PiplupOS mascot",
+  "status": "Native simulator prototype; hardware, pixel cleanup and transition edge cases pending",
+  "canvas": [
+    64,
+    64
+  ],
+  "invariants": {
+    "facing": "left",
+    "eyes": "closed",
+    "physique": "small and chunky; anatomy references do not replace the liked draft silhouette",
+    "headphones": "one pair; on head while playing, around neck after pause/stop delay",
+    "palette": "liked muted ice-blue, denim-blue, white and navy",
+    "head": "round face contour below the beak; no white front-left snout-like cheek",
+    "collar": "two darker-blue rounded drooping lobes below chin, distinct from flippers and white belly spots",
+    "beak": "compact two-part blue beak with dark dividing seam, following the supplied preferred example"
+  },
+  "aseprite_file": "aseprite/piplup-timing-v6.aseprite",
+  "frame_numbering": "1-based; exported Aseprite JSON uses 0-based tag ranges",
+  "pause_stop_delay_ms": 3000,
+  "delay_status": "Draft assumption for review, not user-specified final timing",
+  "states": [
+    {
+      "id": "playing",
+      "tag": "playing-draft",
+      "frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "duration_ms_per_frame": 100,
+      "motion": "Repeat head-bob; not beat-detected",
+      "binding": "Native timed sublines verified in the Mac simulator; physical cadence unmeasured"
+    },
+    {
+      "id": "pause-stop-delay",
+      "tag": "stop-delay-draft",
+      "frames": [
+        9
+      ],
+      "duration_ms_per_frame": 3000,
+      "motion": "Hold headphones on head; cancel removal if playback resumes before delay expires",
+      "binding": "Elapsed-since-stop timer and cancellation unverified"
+    },
+    {
+      "id": "taking-off",
+      "tag": "taking-off-draft",
+      "frames": [
+        10,
+        11
+      ],
+      "duration_ms_per_frame": 200,
+      "motion": "Lower headphones to neck once",
+      "binding": "One-shot transition unverified"
+    },
+    {
+      "id": "paused-stopped",
+      "tag": "headphones-neck-draft",
+      "frames": [
+        12
+      ],
+      "duration_ms_per_frame": 2000,
+      "motion": "Headphones resting at neck; hold indefinitely until resume",
+      "duration_note": "2 seconds is the review GIF hold only, not an idle timeout",
+      "binding": "Immediate static neck rest in standard skin; normal delayed neck rest verified in experimental simulator"
+    },
+    {
+      "id": "putting-on",
+      "tag": "putting-on-draft",
+      "frames": [
+        13,
+        14,
+        15
+      ],
+      "duration_ms_per_frame": 200,
+      "motion": "Raise headphones to head once on resume, before head-bob",
+      "binding": "One-shot transition and interruption behavior unverified"
+    },
+    {
+      "id": "resumed-playing",
+      "tag": "resumed-playing-draft",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "duration_ms_per_frame": 100,
+      "motion": "Return to playback loop",
+      "binding": "Native timed sublines verified in the Mac simulator; physical cadence unmeasured"
+    },
+    {
+      "id": "charging",
+      "frames": [],
+      "motion": "To design after base poses are approved",
+      "binding": "Pending"
+    },
+    {
+      "id": "low-battery",
+      "frames": [],
+      "motion": "To design; headphones placement follows playback state",
+      "binding": "Pending"
+    }
+  ],
+  "interruption_rules": {
+    "resume_during_delay": "Cancel removal and resume bobbing immediately; headphones are already on.",
+    "resume_during_removal": "Raise from current headset pose, then bob; native handling pending.",
+    "stop_during_putting_on": "Avoid a jump or duplicate headset; transition policy needs native prototype."
+  },
+  "preview": {
+    "file": "previews/piplup-headphones-behavior-v6.gif",
+    "duration_ms": 7200,
+    "loops": "Review demo repeats; actual behavior responds to music state"
+  },
+  "native_export": {
+    "status": "Native BMP export and parser checks passed; device tests pending",
+    "format": "BMP with vertically tiled equal-size frames for Rockbox",
+    "scope": "Theme playback/menu surfaces; plugins require separate consideration"
+  },
+  "art_revision": {
+    "version": 5,
+    "reference": "references/piplup-preferred-face-reference.png",
+    "change": "Preferred face contour and compact two-part blue beak, with two rounded blue collar lobes",
+    "cleanup": "Aseprite binary alpha and isolated speck removal; no palette recoloring",
+    "neutral_character_height_px": 50,
+    "foot_baseline_y": 60
+  },
+  "timing_revision": 6
+}

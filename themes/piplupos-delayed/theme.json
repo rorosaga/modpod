@@ -1,0 +1,20 @@
+{
+  "slug": "piplupos-delayed",
+  "name": "PiplupOS \u00b7 experimental timers",
+  "description": "Delayed headphone transitions; requires a custom ipodvideo build with skin variables.",
+  "target": "ipodvideo",
+  "screen": [
+    320,
+    240
+  ],
+  "colors": {
+    "background": "E9EDF1",
+    "foreground": "10162F",
+    "accent": "083EE8",
+    "muted": "A3ADBA"
+  },
+  "status": "Experimental \u00b7 normal delay/resume verified in modified simulator; custom firmware required, hardware untested",
+  "requires_features": [
+    "HAVE_SKIN_VARIABLES"
+  ]
+}

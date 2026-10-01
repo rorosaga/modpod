@@ -1,0 +1,134 @@
+[
+  {
+    "id": "rockbox-install",
+    "title": "Rockbox iPod Video manual · Installation",
+    "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch2.html",
+    "kind": "Official manual",
+    "checked": "2026-09-30",
+    "note": "Exact ipodvideo target; FAT32 prerequisite; Utility installation and flash-storage cautions."
+  },
+  {
+    "id": "rockbox-start",
+    "title": "Rockbox iPod Video manual · Quick start",
+    "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch3.html",
+    "kind": "Official manual",
+    "checked": "2026-09-30",
+    "note": "USB music transfer and starting Apple firmware / Rockbox."
+  },
+  {
+    "id": "rockbox-themes",
+    "title": "Rockbox manual · Theme and skin configuration",
+    "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch13.html",
+    "kind": "Official manual",
+    "checked": "2026-09-30",
+    "note": "Theme directories, configuration files, viewports, and fonts."
+  },
+  {
+    "id": "rockbox-tags",
+    "title": "Rockbox manual · Skin tag reference",
+    "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildap4.html",
+    "kind": "Official manual",
+    "checked": "2026-09-30",
+    "note": "Native WPS/SBS tags used by the starter templates."
+  },
+  {
+    "id": "iflash-quad",
+    "title": "iFlash Quad · Product and illustrated installation",
+    "url": "https://www.iflash.xyz/store/iflash-quad/",
+    "kind": "Manufacturer guide",
+    "checked": "2026-09-30",
+    "note": "Quad compatibility, uSD1-first card order, ribbon lock, and supplied foam-pad instructions."
+  },
+  {
+    "id": "iflash-battery",
+    "title": "iFlash · Third-party extended battery guide",
+    "url": "https://www.iflash.xyz/3rd-party-extended-battery-guide/",
+    "kind": "Manufacturer guide",
+    "checked": "2026-09-30",
+    "note": "Battery size and clearance vary. Historical examples are not a fit guarantee for this pack."
+  },
+  {
+    "id": "iflash-card",
+    "title": "iFlash · SDXC preparation and troubleshooting",
+    "url": "https://www.iflash.xyz/prepare-sdxc-exfat-for-use-with-the-ipod/",
+    "kind": "Manufacturer guide",
+    "checked": "2026-09-30",
+    "note": "Reference for card preparation if restore fails. Formatting erases storage."
+  },
+  {
+    "id": "ifixit-battery",
+    "title": "iFixit · iPod 5th Generation (Video) battery replacement",
+    "url": "https://www.ifixit.com/Guide/iPod+5th+Generation+(Video)+Battery+Replacement/603",
+    "kind": "Illustrated repair guide",
+    "checked": "2026-09-30",
+    "note": "Opening and battery connector photos. Be careful with the small latch and board-mounted socket."
+  },
+  {
+    "id": "amazon-battery",
+    "title": "Techtek CS-IPD650SL battery · Amazon Spain",
+    "url": "https://www.amazon.es/dp/B0DTKR4JHW",
+    "kind": "Purchased product listing",
+    "checked": "2026-09-30",
+    "note": "Advertised specifications only; fit and capacity not measured."
+  },
+  {
+    "id": "amazon-toolkit",
+    "title": "iFixit Essential Electronics Toolkit · Amazon Spain",
+    "url": "https://www.amazon.es/dp/B0964G2Y7S",
+    "kind": "Purchased product listing",
+    "checked": "2026-09-30",
+    "note": "Exact ASIN supplied by Rodrigo."
+  },
+  {
+    "id": "mediamarkt-card",
+    "title": "SanDisk Ultra PLUS 128 GB up to 200 MB/s · MediaMarkt Spain",
+    "url": "https://www.mediamarkt.es/es/product/_tarjeta-micro-sd-sandisk-ultra-plus-128-gb-hasta-200-mbs-uhs-i-v10-a1-c10-adaptador-sd-full-hd-gris-1666653.html",
+    "kind": "Matching product listing",
+    "checked": "2026-09-30",
+    "note": "Matches user description; exact purchased SKU pending."
+  },
+  {
+    "id": "video-flash",
+    "title": "Flash Mod and Battery Replacement | iPod Video 5th Generation",
+    "url": "https://www.youtube.com/watch?v=zpctA2Ag8jk",
+    "kind": "Video · metadata checked only",
+    "checked": "2026-09-30",
+    "author": "Markus Laidlaw",
+    "published": "2022-06-06",
+    "note": "Description uses a 30 GB fifth-generation iPod and iFlash Dual. General opening/orientation reference; different adapter and device variant. Not watched; no timestamps yet."
+  },
+  {
+    "id": "video-battery",
+    "title": "iPod Video Replacement Battery Installation Repair Guide 5G",
+    "url": "https://www.youtube.com/watch?v=Dx-CPuWXW60",
+    "kind": "Video · metadata checked only",
+    "checked": "2026-09-30",
+    "author": "Repairs Universe",
+    "published": "2008-06-23",
+    "note": "Older standard-battery repair video. Not an oversized battery fit demonstration. Not watched; no timestamps yet."
+  },
+  {
+    "id": "rockbox-plugins",
+    "title": "Rockbox iPod Video manual · Movies, text tools, and playlist Search",
+    "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch12.html",
+    "kind": "Official manual",
+    "checked": "2026-09-30",
+    "note": "Separate plugin interfaces; MPEG-1/2 movie format path; text-file viewer/editor and playlist Search."
+  },
+  {
+    "id": "rockbox-database",
+    "title": "Rockbox iPod Video manual · Files, database, and playlist browsing",
+    "url": "https://download.rockbox.org/daily/manual/rockbox-ipodvideo/rockbox-buildch4.html",
+    "kind": "Official manual",
+    "checked": "2026-09-30",
+    "note": "Rockbox library and playlist facilities are distinct from Apple firmware workflows."
+  },
+  {
+    "id": "aseprite-cli",
+    "title": "Aseprite · Official batch processing and export documentation",
+    "url": "https://github.com/aseprite/docs/blob/main/cli.md",
+    "kind": "Official tool documentation",
+    "checked": "2026-09-30",
+    "note": "Fetched through Context7; native installed Aseprite help and actual export results also checked."
+  }
+]

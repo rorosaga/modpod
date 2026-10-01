@@ -1,0 +1,8 @@
+# Modpod: $name — ipodvideo 320x240
+# Starter skin; simulator / device validation pending.
+wps: /.rockbox/wps/$slug.wps
+sbs: /.rockbox/wps/$slug.sbs
+backdrop: -
+foreground color: $foreground
+background color: $background
+selector type: bar (inverse)

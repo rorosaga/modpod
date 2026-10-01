@@ -1,0 +1,6 @@
+{
+  "slug": "paper", "name": "Paper", "description": "Warm white, graphite, and a rust accent. A quiet starting point.",
+  "target": "ipodvideo", "screen": [320, 240],
+  "colors": {"background":"F2EEE6","foreground":"292721","accent":"A24327","muted":"716A60"},
+  "status": "Starter · not tested in Rockbox"
+}

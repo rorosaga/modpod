@@ -1,0 +1,21 @@
+{
+  "theme_name": "PiplupOS",
+  "device_name": "Piplup's iPod",
+  "nicknames": ["pup", "rkzim"],
+  "welcome": "Welcome back, pup.",
+  "profile_label": "rkzim",
+  "car": {
+    "name": "Suki's pink Honda S2000",
+    "reference": "references/suki-s2000-reference.png",
+    "placement": "Welcome/about window or occasional pixel-art scene",
+    "status": "Reference recorded; native sprite pending"
+  },
+  "startup": {
+    "branding": "PiplupOS",
+    "status": "Later welcome scene feasible to prototype; replacing the compiled early Rockbox logo is separate firmware work"
+  },
+  "animation_budget": {
+    "priority": ["playback head-bob", "delayed headphones off", "headphones on resume", "water", "welcome", "charging", "low battery", "car cameo"],
+    "rule": "Prefer native sprites and state conditionals; keep music and navigation responsive. Actual device battery/performance tests remain required."
+  }
+}
