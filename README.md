@@ -4,7 +4,19 @@ A build notebook and theme workshop for Rodrigo’s iPod Video 5.5 generation.
 
 **Custom design direction: [PiplupOS](design/piplupos/README.md).** A Windows 95/XP-era skin with grey beveled windows, deep-blue title bars, pool-water blues, and a left-facing, closed-eye Piplup wearing headphones. Visual concepts and an Aseprite animation draft live in `design/piplupos/`; Paper and Midnight below are foundation examples, not the selected final theme. [Feature preservation](docs/FEATURE_PRESERVATION.md) uses the dual-boot route approved by Rodrigo: Rockbox/PiplupOS plus the original Apple firmware.
 
-**Current stage:** Rodrigo installed the Quad and replacement battery and confirmed the new 128 GB storage on 30 September. Native Apple Silicon Rockbox Utility and the simulator are installed on his Mac. PiplupOS menus, playback and animation have native simulator checks, and the standard skin passes the stable 4.0 parser. The last device inspection found HFS+; no iPod was mounted at the latest check. Start with [the Mac installation and music-backup guide](docs/INSTALL_PIPLUPOS_MAC.md), then [shared music](docs/SHARED_MUSIC.md). FAT32 conversion needs the actual modified disk layout checked first. Screen pressure and post-mod playback/charging/USB checks remain pending. Development uses a dev branch and pull requests to `main`; simulator binaries, virtual music, backups and generated packages are excluded from Git.
+## PiplupOS in motion
+
+| Playback: play, pause, resume | Menu navigation |
+| :---: | :---: |
+| ![PiplupOS playing Weird Fishes / Arpeggi, pausing with Piplup's headphones dropping to his neck, then resuming](design/piplupos/previews/piplupos-ipod-playback.gif) | ![PiplupOS main menu scrolling over the animated pool desktop, then returning to playback](design/piplupos/previews/piplupos-ipod-menu.gif) |
+
+| Piplup dancing | Dancing, then pausing |
+| :---: | :---: |
+| ![Piplup's four 100 ms dance poses](design/piplupos/previews/piplup-dancing.gif) | ![Piplup dances, stops, takes his headphones off to his neck, rests, puts them back on and dances again](design/piplupos/previews/piplup-dance-pause.gif) |
+
+The top row is a screen recording of the stable Rockbox 4.0 `ipodvideo` simulator on the Mac, running the standard `piplupos` theme exactly as packaged for the device: real playback of Radiohead's *Weird Fishes / Arpeggi* with its *In Rainbows* cover, then Space for pause/resume and keyboard menu navigation. The click wheel's red numbers are the simulator's input guide, and its battery reading is simulated. The standard theme drops the headphones to Piplup's neck immediately on pause. The bottom row is the native sprite sheet (`themes/piplupos/assets/piplup.bmp`, identical to `piplup-timing-v6.aseprite`) at 4× scale. The right-hand GIF plays the full designed timeline, including the 3-second pause delay and the take-off/put-on poses, which only the custom-firmware `piplupos-delayed` variant can show. Simulator recordings do not establish the physical iPod's frame rate or battery cost.
+
+**Current stage:** Rodrigo installed the Quad and replacement battery and confirmed the new 128 GB storage on 30 September. On 2 October the iPod was converted to FAT32 (preserving its 2048-byte sectors), music was resynced, and stock Rockbox 4.0 was installed alongside the Apple firmware as a dual boot. Rodrigo's photos and feedback show PiplupOS starting and music playing. The Rockbox database holds all 2,738 songs, and every indexed path matches an installed file. The latest motion/artwork revision was copied to the device and checksum-verified; reloading it and retesting on the hardware are still pending, as are battery clearance and runtime checks. See [the Mac installation and music-backup guide](docs/INSTALL_PIPLUPOS_MAC.md), [shared music](docs/SHARED_MUSIC.md) and [games](docs/GAMES.md). Development uses a dev branch and pull requests to `main`; simulator binaries, virtual music, backups and generated packages are excluded from Git.
 
 ## Open the handbook
 
@@ -31,7 +43,7 @@ python3 tools/modpod.py serve
 
 The palette editor in the handbook can also download an edited `theme.json`. Replace the manifest in its matching theme folder and build again. Packages appear in `dist/themes/` and contain native configuration, WPS/SBS skins, theme bitmaps and bundled fonts with their notices. The `new` command copies native overrides, assets and fonts as well as the manifest. PiplupOS's bitmap palette is edited/exported in Aseprite; changing text tokens alone does not recolor its artwork. See [the workshop](docs/THEME_WORKFLOW.md).
 
-**These are prototypes, not device-tested themes.** The browser shows a generic layout illustration. PiplupOS separately passed native parser and GUI checks recorded in [the build log](docs/BUILD_LOG.md). The standard version animates playback/water and changes immediately on pause. The experimental delayed-headphone version needs custom firmware; stock ipodvideo lacks its timer variables. Paper and Midnight have structural checks only.
+**Only the standard PiplupOS theme has run on the iPod; treat the rest as prototypes.** The browser shows a generic layout illustration. PiplupOS separately passed native parser and GUI checks recorded in [the build log](docs/BUILD_LOG.md), and Rodrigo confirmed the original standard theme on the hardware; the latest revision still needs a hardware retest. The standard version animates playback/water and changes immediately on pause. The experimental delayed-headphone version needs custom firmware; stock ipodvideo lacks its timer variables. Paper and Midnight have structural checks only.
 
 ## Where things live
 
@@ -56,7 +68,7 @@ The palette editor in the handbook can also download an edited `theme.json`. Rep
 5. Resolve FAT32 formatting, then install Rockbox using the current official instructions.
 6. Test a starter theme, then iterate on your own designs.
 
-The connected iPod was **HFS+ / Mac formatted** at its first inspection on 1 October. Rockbox requires a **FAT32 iPod with the appropriate firmware/partition layout**. Conversion erases the data volume, but its existing songs can first be copied to the Mac and restored/resynced afterward. Mac-only conversion is described in the official reference; its old stock-capacity tables must not be applied blindly to this modified 128 GB device. [The installation guide](docs/INSTALL_PIPLUPOS_MAC.md) records the remaining device check and the complete dual-boot/theme steps. Apple-synced songs can then be indexed by Rockbox without a second copy.
+The hardware and Rockbox installation (steps 3 and 5) are done and the project is at step 6; battery clearance and post-mod charging/runtime checks from steps 2 and 4 remain unverified. The iPod was **HFS+ / Mac formatted** at its first inspection on 1 October and was converted to **FAT32** on 2 October, keeping its verified 2048-byte sector size and the Apple firmware. Music was resynced afterward. Do not repeat the conversion or a restore to fix theme, playlist-title or plugin-data problems. [The installation guide](docs/INSTALL_PIPLUPOS_MAC.md) records the dual-boot/theme steps. Apple-synced songs are indexed by Rockbox without a second copy.
 
 ## Check the foundation
 

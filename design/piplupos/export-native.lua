@@ -70,7 +70,6 @@ for _,name in ipairs({'menu','player'}) do
   rect(im,14,209,292,1,c.hi)
   if name=='player' then
     bevel(im,193,63,109,104)
-    rect(im,196,66,103,12,c.navy)
     rect(im,19,171,282,13,c.shadow)
     rect(im,20,172,280,11,c.white)
   else
@@ -81,10 +80,10 @@ for _,name in ipairs({'menu','player'}) do
   if name=='player' then playerBackdrop=im end
 end
 
--- Restore the mascot's pixels outside the art area. Inside it, the native
--- album-art draw (or water fallback) restores the background before the sprite.
+-- Legacy underlay export; the native WPS now restores its cached backdrop.
+-- Keep the enlarged artwork cutout consistent for older asset previews.
 local underlay=Image(playerBackdrop,Rectangle(164,49,64,64))
-for y=31,63 do for x=32,63 do underlay:putPixel(x,y,color('FF00FF')) end end
+for y=17,63 do for x=32,63 do underlay:putPixel(x,y,color('FF00FF')) end end
 underlay:saveAs('themes/piplupos/assets/mascot-underlay.bmp')
 
 local mascot=app.open('design/piplupos/aseprite/piplup-timing-v6.aseprite')
@@ -97,10 +96,10 @@ for frame=1,19 do
 end
 sheet:saveAs('themes/piplupos/assets/piplup.bmp')
 
-local water=Image(103,84*waterFrames,ColorMode.RGB)
+local water=Image(103,98*waterFrames,ColorMode.RGB)
 for frame=0,waterFrames-1 do
-  for y=0,83 do for x=0,102 do
-    water:putPixel(x,y+frame*84,waterPixel(x,y,frame))
+  for y=0,97 do for x=0,102 do
+    water:putPixel(x,y+frame*98,waterPixel(x,y,frame))
   end end
 end
 water:saveAs('themes/piplupos/assets/water.bmp')
@@ -108,17 +107,17 @@ water:saveAs('themes/piplupos/assets/water.bmp')
 -- image viewport's text row against its backdrop before redrawing; separate
 -- transparent layers otherwise leave a grey stripe across the water.
 local function poolFrame(frame,phase)
-  local im=Image(water,Rectangle(0,phase*84,103,84))
+  local im=Image(water,Rectangle(0,phase*98,103,98))
   local cel=mascot.layers[1]:cel(frame)
   im:drawImage(cel.image,Point(14+cel.position.x,14+cel.position.y))
   return im
 end
-local pool=Image(103,84*19,ColorMode.RGB)
-for frame=1,19 do pool:drawImage(poolFrame(frame,(frame-1)%waterFrames),Point(0,(frame-1)*84)) end
+local pool=Image(103,98*19,ColorMode.RGB)
+for frame=1,19 do pool:drawImage(poolFrame(frame,(frame-1)%waterFrames),Point(0,(frame-1)*98)) end
 pool:saveAs('themes/piplupos/assets/pool-mascot.bmp')
 for _,state in ipairs({{'neck',12},{'hold',9}}) do
-  local frames=Image(103,84*waterFrames,ColorMode.RGB)
-  for phase=0,waterFrames-1 do frames:drawImage(poolFrame(state[2],phase),Point(0,phase*84)) end
+  local frames=Image(103,98*waterFrames,ColorMode.RGB)
+  for phase=0,waterFrames-1 do frames:drawImage(poolFrame(state[2],phase),Point(0,phase*98)) end
   frames:saveAs('themes/piplupos/assets/pool-'..state[1]..'.bmp')
 end
 local menuFrames=Image(64,64*4,ColorMode.RGB)

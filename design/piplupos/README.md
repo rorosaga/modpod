@@ -46,7 +46,7 @@ The first set included four interface/aesthetic references and one visible Piplu
 3. Refine the `playing-draft` tag into a smooth repeating head-bob, keeping the closed eye and left-facing beak readable. Clean headset movement and make the head-to-neck transition more gradual; the two intermediate poses are a rough blocking pass.
 4. Add charging and low-battery poses only after the base animation is approved; retain left-facing closed eyes and headphones on head or neck as appropriate to playback.
 5. Refine the existing 320 × 240 native layouts and test additional playback states, menu scrolling and space around the mascot.
-6. Export modified BMPs with `export-native.lua`, rebuild and recheck the native parser and GUI before calling a variant ready.
+6. Export modified BMPs with `python3 tools/export_piplupos.py`, rebuild and recheck the native parser and GUI before calling a variant ready. The wrapper runs Aseprite and packs the opaque panels as RGB565 so backdrop and sprite backgrounds match.
 
 The generated strip has uneven apparent pixel blocks and frame-to-frame shape differences. Resizing it in Aseprite produces an editable draft, not finished pixel art. The PNG concepts remain illustrations; native prototype packages now exist separately under `dist/themes/`.
 
@@ -56,29 +56,43 @@ The generated strip has uneven apparent pixel blocks and frame-to-frame shape di
 
 `themes/piplupos-delayed/` has a draft playback state machine with a 3-second pause delay, removal poses and return-to-head poses. Normal delay and resume were observed in the modified simulator. It requires HAVE_SKIN_VARIABLES, which stock ipodvideo firmware does not enable. Rapid cancellation, leaving/reentering playback, stop timing, stable 4.0 and device tests remain pending. Its menu mascot uses immediate state changes, separate from the playback timer.
 
-The Mac apps and source patch are described in [SIMULATOR.md](../../docs/SIMULATOR.md). Neither variant has been installed on the iPod. Native renderer captures live in `previews/native-*-2026-10-01.png`; they are distinct from the concept boards.
+The Mac apps and source patch are described in [SIMULATOR.md](../../docs/SIMULATOR.md). The standard theme is installed on the iPod; the delayed variant remains a custom-firmware prototype. Native renderer captures live in `previews/native-*.png`; they are distinct from the concept boards.
 
-Playback places the mascot canvas at (164, 49), shifted 8 pixels left and 6 pixels up, while the album art stays at (196, 80). The footer shows **Shuffle On / Shuffle Off** from Rockbox's actual shuffle state. Both states were observed after changing the native playback setting. Rodrigo chose normal fixed-speed dancing, retaining the current 100 ms playing poses; BPM synchronization is [no longer planned](beat-sync.md).
+Playback places the mascot canvas at (164, 49), shifted 8 pixels left and 6 pixels up. The 2026-10-02 revision removes the blue strip above the artwork and moves the cover to (196, 66), expanding its maximum area to 103 × 98. The footer shows **Shuffle On / Shuffle Off** from Rockbox's actual shuffle state. Both states were observed after changing the native playback setting. Rodrigo chose normal fixed-speed dancing; BPM synchronization is [no longer planned](beat-sync.md). The skin requests 100 ms poses, but stock 4.0 playback polls at 200 ms, so the faster Mac simulator does not establish hardware cadence.
 
-The standard skin's WPS and SBS also passed the official stable 4.0 parser on 1 October 2026. For the physical installation, use [the Mac backup, dual-boot and PiplupOS guide](../../docs/INSTALL_PIPLUPOS_MAC.md) and `dist/themes/piplupos.zip`. Stable GUI rendering and hardware performance still need testing; the delayed variant requires custom firmware.
+A small native audio meter below the album name now enables stock Rockbox's 10 Hz peak-meter updates while playing or seeking. The foreground restoration rectangle lives inside each timed pose, so those additional updates restore the previous frame before drawing the next. Pausing removes the meter and disables that extra refresh path. Native Mac playback, pause and resume were checked; actual device frame rate and battery cost remain unmeasured. This is a theme change, with no firmware patch.
 
-`export-native.lua` batch-loads the 19-frame mascot source and generates editable `aseprite/native-menu.aseprite` and `native-player.aseprite`, plus native BMP assets. The cover and transparent mascot share one viewport. An exported underlay restores the window pixels outside the art area, while each timed pose redraws the cover or water; this avoids trails or erased artwork on transitions. The script regenerates those UI sources, so save manual UI variants elsewhere; it leaves the mascot project untouched.
+The standard skin's WPS and SBS passed the official stable 4.0 parser, and the corrected layout was checked in a stable 4.0 GUI simulator on 2 October 2026. For the physical installation, use [the Mac backup, dual-boot and PiplupOS guide](../../docs/INSTALL_PIPLUPOS_MAC.md) and `dist/themes/piplupos.zip`. Hardware performance still needs retesting; the delayed variant requires custom firmware.
+
+`export-native.lua` batch-loads the 19-frame mascot source and generates editable `aseprite/native-menu.aseprite` and `native-player.aseprite`, plus native BMP assets. Artwork and chrome are drawn onto a cached backdrop with `%VB`; an invisible `nofill,noborder` battery-bar rectangle restores that backdrop before each foreground mascot redraw. The full-screen chrome image uses `%x`, so animation does not repeatedly erase cached artwork. This separates the album-art draw from the sprite draw: Rockbox paints album art after queued images within a viewport. Native Mac tests on 2026-10-02 covered cover/no-cover transitions and pause/resume. Physical verification remains pending. The script regenerates those UI sources, so save manual UI variants elsewhere; it leaves the mascot project untouched.
 
 The main menu and playback window are inset by 9 pixels over an animated pool desktop. Twelve synchronized 0.1-second phases now draw only the exposed top, bottom, left and right strips, leaving the grey controls and artwork intact. The angular water loop has no last-to-first phase jump. `aseprite/native-desktop.aseprite` is the editable twelve-frame pool source. The raised X at the title bar's right edge is visual chrome: this iPod uses Menu/Back, with no touch or mouse close target. The native renderer showed changing border pixels during playback, pause and menu navigation; menu scrolling still reaches Shortcuts. Battery text at 100% fits beside the icon and X. These checks do not establish physical animation cost.
 
-`make-pool-preview.lua` illustrates those border phases over a static native capture in `previews/pool-border-preview.gif`. It is not a simulator recording; playback text and the mascot remain frozen in that asset preview. Regenerate it with Aseprite batch mode, `--script-param capture=design/piplupos/previews/native-playing-2026-10-01.png --script design/piplupos/make-pool-preview.lua`.
+`make-pool-preview.lua` illustrates those border phases over a static native capture in `previews/pool-border-preview.gif`. It is not a simulator recording; playback text and the mascot remain frozen in that asset preview. Regenerate it with Aseprite batch mode, `--script-param capture=design/piplupos/previews/native-playing-layer-fix-2026-10-02.png --script design/piplupos/make-pool-preview.lua`.
 
 Add `--script-param no-cover=1` with the native no-cover PNG to generate `previews/piplupos-motion-preview.gif`, including the faster mascot and pool-window animation. This is a composite asset preview with text held still. The native artist/album names and PiplupOS title are now Helvetica Bold. The converted Rockbox font and its Adobe/DEC permission notice are bundled under `themes/piplupos/fonts/`; the menu and song title retain their regular font.
 
 ```sh
-/Applications/Aseprite.app/Contents/MacOS/aseprite -b --script design/piplupos/export-native.lua
+python3 tools/export_piplupos.py
 python3 tools/modpod.py build piplupos
 python3 tools/simulator.py stage piplupos
 ```
 
+## README motion previews · 2026-10-07
+
+`previews/piplupos-ipod-playback.gif` and `piplupos-ipod-menu.gif` are screen recordings of the stable 4.0 simulator running the packaged standard theme, not composites. `piplup-dancing.gif` loops the four stock playing poses; `piplup-dance-pause.gif` plays the full `piplup-timing-v6` timeline at its designed durations, including the 3-second delay that only `piplupos-delayed` can perform. Both sprite GIFs are the native `piplup.bmp` frames at 4×.
+
+## Stock 4.0 motion correction · 2026-10-02
+
+The playback-state conditional now surrounds the timed pose sequence. A conditional nested inside each timed pose made Rockbox apply its default two-second timeout despite `%t(0.1)`. The corrected sequence advanced every 0.11–0.21 seconds in the stable 4.0 Mac simulator. This is a host measurement; physical cadence and battery cost remain unmeasured. Idle menus still refresh about once per second in stock 4.0. Rodrigo chose to finish this theme update and defer a custom firmware build.
+
+Chrome and artwork now share one full-screen cached viewport. The previous second cache viewport cleared a large rectangle with a different background shade. Opaque UI backdrops and menu mascot sheets are exported as undithered RGB565; the editable Aseprite palette and transparent playback sprite are retained. Native captures show matching panel shades and no overwritten opaque mascot pixels in the sampled playing, paused and no-cover poses. The cache uses font 0 for an internal empty line, which produces a parser warning; visible text uses the bundled fonts and both standard skins parse successfully.
+
+All 19 standard theme files were backed up, copied and checksum-verified on the iPod. The firmware, current settings and all 2,738 audio paths/sizes were preserved. Eject, unplug and reload PiplupOS to activate this revision. Hardware retesting remains pending.
+
 ## Feature requirement
 
-Rodrigo wants every original iPod function retained, including Movies, Notes, and Search. A Rockbox skin changes selected interface surfaces; it does not implement Apple's original apps or apply a global mascot overlay to every plugin. See [the preservation matrix](../../docs/FEATURE_PRESERVATION.md). Dual boot was approved on 2026-10-01. Rockbox is not installed on the physical iPod. Native development and tests use [the Mac simulator workflow](../../docs/SIMULATOR.md).
+Rodrigo wants every original iPod function retained, including Movies, Notes, and Search. A Rockbox skin changes selected interface surfaces; it does not implement Apple's original apps or apply a global mascot overlay to every plugin. See [the preservation matrix](../../docs/FEATURE_PRESERVATION.md). Dual boot was approved on 2026-10-01 and installed on 2026-10-02. Rodrigo's physical photos and feedback establish that PiplupOS starts and music plays; the reported artwork, animation and responsiveness issues need hardware retesting after this revision. Native development and tests use [the Mac simulator workflow](../../docs/SIMULATOR.md).
 
 ## Personal touches added on 2026-10-01
 

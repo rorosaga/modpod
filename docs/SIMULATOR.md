@@ -94,6 +94,8 @@ The current water animation has 12 phases with a continuous angular loop, replac
 
 ## Installation boundary
 
+Update on 2026-10-02: the hardware was converted to FAT32, stock Rockbox 4.0 and Apple dual boot were installed, and music was resynced. Rodrigo's photos and feedback show the theme and playback working. The committed database contains all 2,738 installed songs. The current layer/artwork/playlist revision and Doom data fix have been copied and checksum-verified, with existing settings and music preserved. Loading the settings preset, reloading the theme and hardware retesting remain pending. The following 2026-10-01 paragraph describes the earlier preparation boundary.
+
 On 2026-10-01 the connected 128 GB iPod was still HFS+ and had approximately 11.9 GB in use. Rockbox installation needs a FAT32-initialized iPod. No formatting, bootloader install, reset, or disconnection was performed. Preserve the Mac song originals and review backups before a conversion that may erase the iPod.
 
 Rodrigo approved dual boot and Mac preparation, and requested no resets/unplugging during autonomous work. He subsequently authorized publication through a dev branch, PR and merge. A hardware installation session is separate from the local simulator loop; use [the Mac installation guide](INSTALL_PIPLUPOS_MAC.md), starting with a verified backup of the existing songs.
@@ -105,3 +107,11 @@ Built `checkwps.ipodvideo` from official `v4.0-final`, commit `e094c599fa6023652
 This establishes stable tag/parser compatibility for the standard theme, not stable GUI rendering, device animation cadence or custom-delay support. The delayed variant still needs custom firmware.
 
 Primary references: [official simulator instructions](https://github.com/Rockbox/rockbox/blob/master/docs/UISIMULATOR), [Mac build configuration](https://github.com/Rockbox/rockbox/blob/master/tools/configure), [installation requirements](https://github.com/Rockbox/rockbox/blob/master/manual/getting_started/installation.tex).
+
+## Stable 4.0 GUI timing check · 2026-10-02
+
+An isolated simulator at `local/rockbox/build-ipodvideo-4.0/` now runs official `v4.0-final` for ipodvideo/64 MB. Configure used `--type=s --ram=64 --no-ccache --sdl-threads` and the installed host GCC. SDL threads avoid macOS's restricted sigaltstack path. Host-only input-tap support and render timing diagnostics are present; playback/list scheduling and the target skin features remain stock. It does not enable HAVE_SKIN_VARIABLES.
+
+Its app is `local/rockbox/build-ipodvideo-4.0/PiplupOS Stock 4.0.app`; launch the executable with `--root` pointing to that build's `simdisk`. It is separate from the development simulator and its faster scheduling patch. Never copy either simulator's binaries/plugins to the device.
+
+The release simulator reproduced the old two-second pose holds and the pale cached-artwork rectangle. After the state/cache fixes, playing poses advanced every 0.11–0.21 seconds. Native F5 dumps verified matching backdrop/menu-sprite panel colours, cover/no-cover transitions and intact opaque sprite pixels in the sampled poses. Idle menus still refresh about once per second. These host measurements do not establish the physical frame rate or battery cost. The corrected standard theme was copied and checksum-verified on the iPod; reload and hardware retesting remain pending.

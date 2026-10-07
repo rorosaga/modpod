@@ -29,7 +29,7 @@ for phase=1,#desktop.frames do
   end
   if noCover then
     im:drawImage(underlay,Point(164,49))
-    im:drawImage(Image(pool,Rectangle(0,0,103,84)),Point(196,80))
+    im:drawImage(Image(pool,Rectangle(0,0,103,98)),Point(196,66))
     local cel=mascot.layers[1]:cel((phase-1)%4+1)
     im:drawImage(cel.image,Point(164+cel.position.x,49+cel.position.y))
   end
