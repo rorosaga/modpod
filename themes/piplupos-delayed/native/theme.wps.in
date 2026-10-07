@@ -1,18 +1,26 @@
-# Album art and mascot share an animated viewport to restore underlying pixels.
+# Album art is cached on the backdrop; Piplup is drawn in the foreground.
 %wd
 %Fl(2,15-Adobe-Helvetica.fnt)
 %Fl(3,14-Adobe-Helvetica-Bold.fnt)
-%X(player.bmp)
 %xl(T,pool-top.bmp,0,0,12)
 %xl(B,pool-bottom.bmp,0,0,12)
 %xl(L,pool-left.bmp,0,0,12)
 %xl(R,pool-right.bmp,0,0,12)
-%xl(w,water.bmp,32,31,12)
-%xl(b,mascot-underlay.bmp,0,0)
+%xl(w,water.bmp,196,66,12)
 %xl(p,piplup.bmp,0,0,19)
-%Cl(32,31,103,84,c,c)
+%Cl(196,66,103,98,c,c)
 %V(0,0,1,18,2)
 %?mp<%?vg(mode)<%vs(mode,set,5)|%vs(mode,set,3)|%?vl(mode,3)<|%vs(mode,set,4)>|%?vl(mode,0.4)<|%vs(mode,set,5)>||%vs(mode,set,3)>|%?vg(mode)<%vs(mode,set,2)||%vs(mode,set,2)|%vs(mode,set,6)|%vs(mode,set,6)|%?vl(mode,0.6)<|%vs(mode,set,2)>>|%?vg(mode)<%vs(mode,set,5)|%vs(mode,set,3)|%?vl(mode,3)<|%vs(mode,set,4)>|%?vl(mode,0.4)<|%vs(mode,set,5)>||%vs(mode,set,3)>|%?vg(mode)<%vs(mode,set,2)||%vs(mode,set,2)|%vs(mode,set,6)|%vs(mode,set,6)|%?vl(mode,0.6)<|%vs(mode,set,2)>>|%?vg(mode)<%vs(mode,set,2)||%vs(mode,set,2)|%vs(mode,set,6)|%vs(mode,set,6)|%?vl(mode,0.6)<|%vs(mode,set,2)>>>
+# Cache the chrome and cover before drawing the animated foreground.
+# The system font keeps empty cache-line clears within the outer water edge.
+%V(0,0,320,240,0)
+%VB
+%Vb($background)
+%x(H,player.bmp,0,0)
+%?C<%Cd|%t(0.1)%xd(wa);%t(0.1)%xd(wb);%t(0.1)%xd(wc);%t(0.1)%xd(wd);%t(0.1)%xd(we);%t(0.1)%xd(wf);%t(0.1)%xd(wg);%t(0.1)%xd(wh);%t(0.1)%xd(wi);%t(0.1)%xd(wj);%t(0.1)%xd(wk);%t(0.1)%xd(wl)>
+# Copy the completed backdrop on full redraws before painting text and sprites.
+%V(0,0,320,240,2)
+%Vf($foreground)
 %V(0,0,320,9,2)
 %t(0.1)%xd(Ta);%t(0.1)%xd(Tb);%t(0.1)%xd(Tc);%t(0.1)%xd(Td);%t(0.1)%xd(Te);%t(0.1)%xd(Tf);%t(0.1)%xd(Tg);%t(0.1)%xd(Th);%t(0.1)%xd(Ti);%t(0.1)%xd(Tj);%t(0.1)%xd(Tk);%t(0.1)%xd(Tl)
 %V(0,231,320,9,2)
@@ -40,11 +48,17 @@
 %V(21,95,143,20,3)
 %Vf($foreground)
 %s%?id<%id|Unknown album>
+# A native audio meter requests the stock 10 Hz peak refresh during playback.
+%V(21,116,130,14,2)
+%Vf($accent)
+%Vb($background)
+%?mp<|%pm||%pm|%pm>
 %V(21,133,143,18,2)
 %Vf($foreground)
 %al%?mp<Stopped|Playing|Paused|Seeking|Seeking>%ar%pv dB
 %V(164,49,135,118,2)
-%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pa)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wa)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pb)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wb)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pc)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wc)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pd)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wd)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pa)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(we)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pb)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wf)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pc)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wg)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pd)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wh)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pa)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wi)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pb)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wj)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pc)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wk)>%xd(b)%xd(po)>>>;%t(0.1)%?vg(mode)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pl)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pd)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pi)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pj)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pk)>|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pl)|%?vl(mode,0.2)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pm)|%?vl(mode,0.4)<%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(pn)|%dr(32,31,103,84,E9EDF1)%?C<%Cd|%xd(wl)>%xd(b)%xd(po)>>>
+# Select playback state outside timed poses; nested conditionals impose a 2s default.
+%?vg(mode)<%bl(0,0,135,118,-,nofill,noborder)%xd(pl)|%t(0.1)%bl(0,0,135,118,-,nofill,noborder)%xd(pa);%t(0.1)%bl(0,0,135,118,-,nofill,noborder)%xd(pb);%t(0.1)%bl(0,0,135,118,-,nofill,noborder)%xd(pc);%t(0.1)%bl(0,0,135,118,-,nofill,noborder)%xd(pd)|%bl(0,0,135,118,-,nofill,noborder)%xd(pi)|%bl(0,0,135,118,-,nofill,noborder)%?vl(mode,0.2)<%xd(pj)|%xd(pk)>|%bl(0,0,135,118,-,nofill,noborder)%xd(pl)|%bl(0,0,135,118,-,nofill,noborder)%?vl(mode,0.2)<%xd(pm)|%?vl(mode,0.4)<%xd(pn)|%xd(po)>>>
 %V(21,173,278,10,2)
 %Vf($accent)
 %pb(0,0,278,8)
