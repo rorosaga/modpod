@@ -113,6 +113,11 @@
 - Built an isolated GUI simulator from official `v4.0-final` with SDL threads, host input-tap support and timing diagnostics. No animation scheduling patch or skin-variable feature is enabled in that release simulator. Both standard skins parse successfully; the internal font-0 cache viewport produces a warning. All eight focused tests and project validation pass.
 - Reverified the physical FAT32 volume UUID and stock 4.0 ipodvideo/64 MB target. Backed up and copied all 19 standard theme files, then verified SHA256 hashes. All 2,738 audio paths/sizes, current settings and firmware hashes are preserved. Theme reload and physical animation/background retest are pending. No custom firmware, bootloader changes, formatting, commits or publication occurred.
 
+## 2026-10-07 · README motion previews
+
+- Recorded the stable 4.0 `ipodvideo` simulator window (the 19 staged theme files matched the freshly built `dist/themes/piplupos.zip` byte for byte) with `screencapture` at about 13 frames/s, keeping the measured frame timings. Playback used Rodrigo's local copy of *Weird Fishes / Arpeggi* with the prepared 98 × 98 *In Rainbows* cover on the ignored simulator disk. Pause showed the immediate neck-rest pose and removed the audio meter; resume restored the dance. The simulator's battery reading is synthetic.
+- Built the sprite GIFs from `themes/piplupos/assets/piplup.bmp` at 4× with nearest-neighbour scaling and one shared quantised palette. Its 19 frames match `piplup-timing-v6.aseprite` with zero mismatched pixels. These are previews only; no device writes occurred and physical cadence remains unmeasured.
+
 ## Hardware session · To fill in
 
 - Date / before photo:

@@ -78,6 +78,10 @@ python3 tools/modpod.py build piplupos
 python3 tools/simulator.py stage piplupos
 ```
 
+## README motion previews · 2026-10-07
+
+`previews/piplupos-ipod-playback.gif` and `piplupos-ipod-menu.gif` are screen recordings of the stable 4.0 simulator running the packaged standard theme, not composites. `piplup-dancing.gif` loops the four stock playing poses; `piplup-dance-pause.gif` plays the full `piplup-timing-v6` timeline at its designed durations, including the 3-second delay that only `piplupos-delayed` can perform. Both sprite GIFs are the native `piplup.bmp` frames at 4×.
+
 ## Stock 4.0 motion correction · 2026-10-02
 
 The playback-state conditional now surrounds the timed pose sequence. A conditional nested inside each timed pose made Rockbox apply its default two-second timeout despite `%t(0.1)`. The corrected sequence advanced every 0.11–0.21 seconds in the stable 4.0 Mac simulator. This is a host measurement; physical cadence and battery cost remain unmeasured. Idle menus still refresh about once per second in stock 4.0. Rodrigo chose to finish this theme update and defer a custom firmware build.
